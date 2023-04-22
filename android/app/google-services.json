@@ -1,0 +1,46 @@
+{
+  "project_info": {
+    "project_number": "334766678664",
+    "project_id": "endocare-3c966",
+    "storage_bucket": "endocare-3c966.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:334766678664:android:0334b2f0313c599d0fb53d",
+        "android_client_info": {
+          "package_name": "com.example.primeiroprojeto"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "334766678664-lvrm5gs26n8teee7hs8pkmjcv8ekpdjd.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyCdSFed7v7D8juAp_UAurqiphklaovnOkk"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "334766678664-lvrm5gs26n8teee7hs8pkmjcv8ekpdjd.apps.googleusercontent.com",
+              "client_type": 3
+            },
+            {
+              "client_id": "334766678664-j2cs8oi5bc034ovqrodb8hk5lu9k3tmi.apps.googleusercontent.com",
+              "client_type": 2,
+              "ios_info": {
+                "bundle_id": "com.example.primeiroprojeto"
+              }
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
