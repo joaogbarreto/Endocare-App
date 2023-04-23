@@ -42,28 +42,33 @@ class _Medicacao extends State<CardMedicacao> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  Container(
-                    width: MediaQuery.of(context).size.width * 0.5,
+                  Padding(
+                    padding: const EdgeInsets.only(right: 80.0, bottom: 30),
+                    child: Container(
+                      child: Text(
+                        'Notas',
+                        style: TextStyle(
+                            fontFamily: 'Poppins',
+                            fontSize: 22,
+                            color: black2),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                  SizedBox(
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
+
                         Container(
-                          child: Text(
-                            'Notas',
-                            style: TextStyle(
-                                fontFamily: 'Poppins',
-                                fontSize: 22,
-                                color: black2),
-                            textAlign: TextAlign.center,
-                          ),
-                        ),
-                        Container(
+                          alignment: Alignment.center,
                           child: Text(
                             widget.notas,
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 22,
-                                color: black2),
+                                color: gray2),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -92,7 +97,7 @@ class _Medicacao extends State<CardMedicacao> {
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 22,
-                              color: black2),
+                              color: secondaryColorblue2),
                           textAlign: TextAlign.center,
                         )),
                         Container(
@@ -101,7 +106,7 @@ class _Medicacao extends State<CardMedicacao> {
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 22,
-                              color: black2),
+                              color: secondaryColorblue2),
                           textAlign: TextAlign.center,
                         )),
                       ],
@@ -116,7 +121,7 @@ class _Medicacao extends State<CardMedicacao> {
                           style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 22,
-                              color: black2),
+                              color: secondaryColorblue2),
                           textAlign: TextAlign.center,
                         )),
                         Container(
@@ -125,6 +130,7 @@ class _Medicacao extends State<CardMedicacao> {
                             style: TextStyle(
                               fontFamily: 'Poppins',
                               fontSize: 22,
+                              color: secondaryColorblue2
                             ),
                             textAlign: TextAlign.center,
                           ),

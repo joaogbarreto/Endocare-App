@@ -5,7 +5,7 @@ import '../styles/color.dart';
 
 enum _MenuValues { Editar, Excluir }
 
-class CardGlicose extends StatefulWidget {
+class CardGlicose extends TelaGlicose {
   String hora;
   String concentracaoSugarSangue;
 
@@ -40,20 +40,6 @@ class _Glicose extends State<CardGlicose> {
                 mainAxisAlignment: MainAxisAlignment.center,
                 crossAxisAlignment: CrossAxisAlignment.end,
                 children: <Widget>[
-                  PopupMenuButton<_MenuValues>(
-                    itemBuilder: (BuildContext context) => [
-                      PopupMenuItem(
-                        child: Text('Editar Registro'),
-                        value: _MenuValues.Editar,
-                        onTap:(){
-                        } ,
-                      ),
-                      PopupMenuItem(
-                        child: Text('Excluir Registro'),
-                        value: _MenuValues.Excluir,
-                      ),
-                    ],
-                  ),
                   Container(
                     width: MediaQuery.of(context).size.width * 0.5,
                     child: Column(

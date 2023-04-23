@@ -66,59 +66,66 @@ class _TelaGlicoseState extends State<TelaGlicose> {
             foregroundColor: black2,
             backgroundColor: white,
           ),
-          body: (listGlicose.isEmpty)?const Center(
-            child: Text(
-              "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
-              textAlign: TextAlign.center,
-              style: TextStyle(fontSize: 18),
-            ),
-          )
-          : RefreshIndicator(
-            onRefresh: (){
-              return refresh();
-            },
-            child: CustomScrollView(slivers: <Widget>[
-              SliverToBoxAdapter(
-                child: Container(
-                  margin: EdgeInsets.only(top: 20),
-                  child: LineChartWidget(bloodGlicose),
-                ),
-              ),
-              SliverToBoxAdapter(
-                child: Padding(
-                  padding:
-                      const EdgeInsets.symmetric(horizontal: 24.0, vertical: 12),
-                  child: Container(
-                    child: Row(
-                      children: [
-                        Container(
-                          margin: EdgeInsets.symmetric(horizontal: 5),
-                          height: 10,
-                          width: 10,
-                          decoration: BoxDecoration(
-                              color: Colors.red,
-                              borderRadius: BorderRadius.circular(50)),
-                        ),
-                        Text('Açucar no Sangue'),
-                      ],
+          body: (listGlicose.isEmpty)
+              ? const Center(
+                  child: Text(
+                    "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
+                    textAlign: TextAlign.center,
+                    style: TextStyle(fontSize: 18),
+                  ),
+                )
+              : RefreshIndicator(
+                  onRefresh: () {
+                    return refresh();
+                  },
+                  child: CustomScrollView(slivers: <Widget>[
+                    SliverToBoxAdapter(
+                      child: Container(
+                        margin: EdgeInsets.only(top: 20),
+                        child: LineChartWidget(bloodGlicose),
+                      ),
                     ),
-                  ),
+                    SliverToBoxAdapter(
+                      child: Padding(
+                        padding: const EdgeInsets.symmetric(
+                            horizontal: 24.0, vertical: 12),
+                        child: Container(
+                          child: Row(
+                            children: [
+                              Container(
+                                margin: EdgeInsets.symmetric(horizontal: 5),
+                                height: 10,
+                                width: 10,
+                                decoration: BoxDecoration(
+                                    color: Colors.red,
+                                    borderRadius: BorderRadius.circular(50)),
+                              ),
+                              Text('Açucar no Sangue'),
+                            ],
+                          ),
+                        ),
+                      ),
+                    ),
+                    SliverList(
+                        delegate: SliverChildBuilderDelegate((context, index) {
+                      return Padding(
+                        padding: const EdgeInsets.all(12.0),
+                        child: InkWell(
+                          onDoubleTap: () =>
+                              showFormModal(model: listGlicose[index]),
+                          onLongPress: () => showFormModalDelete(index),
+                          child: CardGlicose(
+                            key: key,
+                            hora: listGlicose[index].hora,
+                            concentracaoSugarSangue: listGlicose[index]
+                                .sugarConcentration
+                                .toString(),
+                          ),
+                        ),
+                      );
+                    }, childCount: listGlicose.length))
+                  ]),
                 ),
-              ),
-              SliverList(
-                  delegate: SliverChildBuilderDelegate((context, index) {
-                return Padding(
-                  padding: const EdgeInsets.all(12.0),
-                  child: CardGlicose(
-                    key: key,
-                    hora: listGlicose[index].hora,
-                    concentracaoSugarSangue:
-                        listGlicose[index].sugarConcentration.toString(),
-                  ),
-                );
-              }, childCount: listGlicose.length))
-            ]),
-          ),
           bottomNavigationBar: BottomNavigationBar(
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
@@ -167,7 +174,7 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     String labelTitle = "Adicionar Glicose";
     String labelConfirmationButton = "Salvar";
     String labelSkipButton = "Cancelar";
-
+    late var hora;
     // Controlador do campo que receberá o nome do Objeto
     TextEditingController nameController = TextEditingController();
     TextEditingController sugarConcentrationController =
@@ -175,8 +182,8 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     TextEditingController glicoseController = TextEditingController();
     // Caso esteja editando
     if (model != null) {
-      // labelTitle = "Editando ${model.name}";
-      // nameController.text = model.name;
+      labelTitle = "Editando Glicose";
+      glicoseController.text = model.sugarConcentration.toString();
     }
     // Função do Flutter que mostra o modal na tela
     showModalBottomSheet(
@@ -211,31 +218,36 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                 children: [
                   ElevatedButton(
                       onPressed: () {
-                            // Criar um objeto Glicose com as infos
-                            Glicose glicose = Glicose (
-                              id: const Uuid().v1(),
-                              sugarConcentration: double.parse(glicoseController.text),
-                              day: DateTime.now().day.toDouble(),
-                              hora: DateFormat('KK:mm').format(DateTime.now())
-                            );
+                        // Criar um objeto Glicose com as infos
 
-                            // Usar id do model
-                            if (model != null) {
-                              glicose.id = model.id;
-                            }
+                        Glicose glicose = Glicose(
+                            id: const Uuid().v1(),
+                            sugarConcentration:
+                                double.parse(glicoseController.text),
+                            day: DateTime.now().day.toDouble(),
+                            hora: hora =
+                                DateFormat('KK:mm').format(DateTime.now()));
 
-                            // Salvar no Firestore
-                            firestore
-                                .collection("glicose")
-                                .doc(glicose.id)
-                                .set(glicose.toMap());
-                            // Atualizar a lista
-                            refresh();
+                        // Usar id do model
+                        if (model != null) {
+                          glicose.id = model.id;
+                        }
 
-                        CadastroGlicoseInherited.of(context).newCadastroGlicose(
-                            glicose.hora,
-                            glicoseController.text);
-
+                        // Salvar no Firestore
+                        firestore
+                            .collection("glicose")
+                            .doc(glicose.id)
+                            .set(glicose.toMap());
+                        // Atualizar a lista
+                        refresh();
+                        if (model != null) {
+                          CadastroGlicoseInherited.of(context)
+                              .newCadastroGlicose(hora, glicoseController.text);
+                        } else {
+                          CadastroGlicoseInherited.of(context)
+                              .newCadastroGlicose(
+                                  glicose.hora, glicoseController.text);
+                        }
                         // Fechar o Modal
                         Navigator.pop(context);
                       },
@@ -257,11 +269,12 @@ class _TelaGlicoseState extends State<TelaGlicose> {
       },
     );
   }
+
   refresh() async {
     List<Glicose> temp = [];
 
     QuerySnapshot<Map<String, dynamic>> snapshot =
-    await firestore.collection("glicose").get();
+        await firestore.collection("glicose").get();
 
     for (var doc in snapshot.docs) {
       temp.add(Glicose.fromMap(doc.data()));
@@ -277,6 +290,49 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     refresh();
   }
 
+  showFormModalDelete(int index) {
+    showModalBottomSheet(
+        context: context,
+        shape: const RoundedRectangleBorder(
+          borderRadius: BorderRadius.vertical(
+            top: Radius.circular(24),
+          ),
+        ),
+        builder: (context) {
+          return Container(
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.all(32.0),
+            child: ListView(
+              children: [
+                Text("Deseja Excluir?",
+                    style: Theme.of(context).textTheme.headlineSmall),
+                const SizedBox(
+                  height: 16,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          remove(listGlicose[index]);
+
+                          Navigator.pop(context);
+                        },
+                        child: Text("Sim")),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      child: Text("Não"),
+                    )
+                  ],
+                )
+              ],
+            ),
+          );
+        });
+  }
 }
-
-

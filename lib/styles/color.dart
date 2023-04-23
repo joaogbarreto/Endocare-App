@@ -5,6 +5,7 @@ Color principalColor = Color(0xFF153C5C);
 Color newprincipalColor = Color(0xFFBBD8E0);
 Color secondarycolorblueweak = Color(0xFF91DEFF);
 Color secondaryColorblue = Color(0xFF395B77);
+Color secondaryColorblue2 = Color(0xFF00405C);
 Color secondaryColor = Color(0xFF052E50);
 Color secondaryColorwhite = Color(0xFFF9F9F9);
 Color black = Color(0xFF000000);

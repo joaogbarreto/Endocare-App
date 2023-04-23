@@ -41,7 +41,7 @@ class MyApp extends StatelessWidget {
         colorScheme: ColorScheme.fromSeed(seedColor: principalColor),
         useMaterial3: true,
       ),
-      initialRoute: '/TelaGlicose',
+      initialRoute: '/TelaMedicacao',
       routes: {
         '/': (context) => const TelaInicio(),
         '/TelaLogin': (context) => const TelaLogin(),

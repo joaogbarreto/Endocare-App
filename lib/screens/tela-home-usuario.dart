@@ -117,7 +117,7 @@ class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
                                       fontSize: 22,
                                       color: black,
                                       fontWeight: FontWeight.bold),
-                                  textAlign: TextAlign.justify,
+                                  textAlign: TextAlign.start,
                                 ),
                               ),
                             ),
