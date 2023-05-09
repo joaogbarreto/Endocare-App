@@ -91,13 +91,13 @@ class _Insulina extends State<Insulina> {
                           Container(
                             child: Text(
                               'Evento',
-                              style: styleTextField,
+                              style: styleTextFieldHint,
                             ),
                           ),
                           Container(
                             child: Text(
                               'Notas',
-                              style: styleTextField,
+                              style: styleTextFieldHint,
                             ),
                           )
                         ],
@@ -111,7 +111,7 @@ class _Insulina extends State<Insulina> {
                               widget.evento,
                               style: TextStyle(
                                 fontSize: 20,
-                                color: gray,
+                                color: principalGray,
                                 fontFamily: 'SourceSansPro',
                               ),
                             ),
@@ -121,7 +121,7 @@ class _Insulina extends State<Insulina> {
                               widget.notas,
                               style: TextStyle(
                                 fontSize: 20,
-                                color: gray,
+                                color: principalGray,
                                 fontFamily: 'SourceSansPro',
                               ),
                             ),
@@ -135,13 +135,13 @@ class _Insulina extends State<Insulina> {
                           Container(
                             child: Text(
                               widget.concentracaoInsulina,
-                              style: styleTextField,
+                              style: styleTextFieldHint,
                             ),
                           ),
                           Container(
                             child: Text(
                               'ml',
-                              style: styleTextField,
+                              style: styleTextFieldHint,
                             ),
                           ),
                         ],

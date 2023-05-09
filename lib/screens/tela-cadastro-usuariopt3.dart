@@ -7,14 +7,14 @@ import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 
-class TelaLogin extends StatefulWidget {
-  const TelaLogin({Key? key}) : super(key: key);
+class TelaCadastroUsuarioPT3 extends StatefulWidget {
+  const TelaCadastroUsuarioPT3({Key? key}) : super(key: key);
 
   @override
-  State<TelaLogin> createState() => _TelaLoginState();
+  State<TelaCadastroUsuarioPT3> createState() => _TelaCadastroUsuarioPT3State();
 }
 
-class _TelaLoginState extends State<TelaLogin> {
+class _TelaCadastroUsuarioPT3State extends State<TelaCadastroUsuarioPT3> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
@@ -42,7 +42,7 @@ class _TelaLoginState extends State<TelaLogin> {
             crossAxisAlignment: CrossAxisAlignment.center,
             children: <Widget>[
               SvgPicture.asset(
-                "assets/imagem_login.svg",
+                "assets/imagem_cadastro_usuariopt3.svg",
                 width: MediaQuery.of(context).size.width * 0.3,
                 height: MediaQuery.of(context).size.height * 0.3,
               ),
@@ -51,7 +51,7 @@ class _TelaLoginState extends State<TelaLogin> {
                 child: Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height*0.35,
+                    height: MediaQuery.of(context).size.height * 0.3,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -193,13 +193,14 @@ class _TelaLoginState extends State<TelaLogin> {
                                 child: TextFormField(
                                   obscureText: true,
                                   validator: (String? value) {
-                                    if (value == null || value.length < 4) {
-                                      return "Insira uma confirmação de senha válida.";
-                                    }
-                                    if (value != passwordController.text) {
-                                      return "As senhas devem ser iguais.";
-                                    }
                                     return null;
+
+                                    // if (value != null && value.isEmpty) {
+                                    //   return 'Insira seu Email';
+                                    // } else if (value == 'adm' || value == 'ADM') {
+                                    //   return null;
+                                    // }
+                                    // return 'Insira um Email valido';
                                   },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.text,
@@ -220,7 +221,7 @@ class _TelaLoginState extends State<TelaLogin> {
                                             BorderSide(color: red, width: 2.5),
                                         borderRadius: BorderRadius.circular(50),
                                       ),
-                                      hintText: 'Confirme sua senha',
+                                      hintText: 'Confirme a sua senha',
                                       hintStyle: styleTextFieldHint,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
@@ -249,7 +250,7 @@ class _TelaLoginState extends State<TelaLogin> {
                         botaoEnviarClicado();
                       },
                       child: const Text(
-                        "ENTRAR",
+                        "Finalizar",
                         style: TextStyle(
                             fontFamily: "Poppins",
                             fontSize: 20,
@@ -266,9 +267,9 @@ class _TelaLoginState extends State<TelaLogin> {
                         margin: EdgeInsets.only(top: 30),
                         child: GestureDetector(
                           onTap: () => Navigator.pushNamed(
-                              context, '/TelaCadastroUsuarioPT1'),
+                              context, '/TelaLogin'),
                           child: Text(
-                            "Não tenho uma conta",
+                            "Já tenho uma conta",
                             style: TextStyle(
                               color: principalColor,
                               decorationColor: principalColor,
@@ -286,22 +287,28 @@ class _TelaLoginState extends State<TelaLogin> {
           ),
         ),
       );
+botaoEnviarClicado() {
+  String email = emailController.text;
+  String senha = passwordController.text;
 
-  botaoEnviarClicado() {
-    String email = emailController.text;
-    String senha = passwordController.text;
-
-    if (_formKey.currentState!.validate()) {
-        _entrarUsuario(email: email, senha: senha);
-        Navigator.pushNamed(context, '/TelaHomePages');
+  if (_formKey.currentState!.validate()) {
+    if (isEntrando) {
+      _criarUsuario(email: email, senha: senha);
+      Navigator.pushNamed(context, '/TelaHomePages');
     }
   }
-
-  _entrarUsuario({required String email, required String senha}) {
-    authService.entrarUsuario(email: email, senha: senha).then((String? erro) {
-      if (erro != null) {
-        showSnackBar(context: context, mensagem: erro);
-      }
-    });
+}
+  _criarUsuario({
+    required String email,
+    required String senha,
+    String? nome,
+  }) {
+    authService.cadastrarUsuario(email: email, senha: senha).then(
+          (String? erro) {
+        if (erro != null) {
+          showSnackBar(context: context, mensagem: erro);
+        }
+      },
+    );
   }
 }

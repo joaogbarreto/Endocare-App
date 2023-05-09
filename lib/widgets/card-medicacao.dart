@@ -6,13 +6,13 @@ import '../styles/color.dart';
 class CardMedicacao extends StatefulWidget {
   final String hora;
   final String nome;
-  final String notas;
+  final String observacoes;
 
   CardMedicacao(
       {Key? key,
       required this.hora,
       required this.nome,
-      required this.notas,})
+      required this.observacoes,})
       : super(key: key);
 
   @override
@@ -27,32 +27,30 @@ class _Medicacao extends State<CardMedicacao> {
         child: Stack(
           children: [
             Container(
+              alignment: Alignment.centerRight,
               width: MediaQuery.of(context).size.width,
               height: MediaQuery.of(context).size.height * 0.15,
               decoration: BoxDecoration(
                   borderRadius: BorderRadius.circular(20),
                   color: white,
-                  boxShadow: <BoxShadow>[
+                  boxShadow: const <BoxShadow>[
                     BoxShadow(
                         color: Color(0xFFe8e8e8),
                         blurRadius: 5.0,
                         offset: Offset(0, 5)),
                   ]),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.center,
-                crossAxisAlignment: CrossAxisAlignment.end,
+                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                crossAxisAlignment: CrossAxisAlignment.center,
                 children: <Widget>[
-                  Padding(
-                    padding: const EdgeInsets.only(right: 80.0, bottom: 30),
-                    child: Container(
-                      child: Text(
-                        'Notas',
-                        style: TextStyle(
-                            fontFamily: 'Poppins',
-                            fontSize: 22,
-                            color: black2),
-                        textAlign: TextAlign.center,
-                      ),
+                  Container(
+                    child: Text(
+                      'Observações',
+                      style: TextStyle(
+                          fontFamily: 'Poppins',
+                          fontSize: 22,
+                          color: black2),
+                      textAlign: TextAlign.center,
                     ),
                   ),
                   SizedBox(
@@ -60,15 +58,14 @@ class _Medicacao extends State<CardMedicacao> {
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.center,
                       children: <Widget>[
-
                         Container(
                           alignment: Alignment.center,
                           child: Text(
-                            widget.notas,
+                            widget.observacoes,
                             style: TextStyle(
                                 fontFamily: 'Poppins',
                                 fontSize: 22,
-                                color: gray2),
+                                color: principalGray),
                             textAlign: TextAlign.center,
                           ),
                         ),
@@ -83,7 +80,7 @@ class _Medicacao extends State<CardMedicacao> {
               height: MediaQuery.of(context).size.height * 0.15,
               decoration: BoxDecoration(
                 borderRadius: BorderRadius.all(Radius.circular(20)),
-                color: newprincipalColor,
+                color: backCards,
               ),
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.spaceEvenly,

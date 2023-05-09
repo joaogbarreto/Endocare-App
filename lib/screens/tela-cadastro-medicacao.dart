@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
-import 'package:primeiroprojeto/widgets/cardglicose.dart';
+import 'package:primeiroprojeto/widgets/card-glicose.dart';
 
 class TelaCadastroMedicacao extends StatefulWidget {
   const TelaCadastroMedicacao({Key? key}) : super(key: key);
@@ -240,7 +240,7 @@ class _TelaCadastroMedicacaoState extends State<TelaCadastroMedicacao> {
                                     decoration: InputDecoration(
                                       hintText: 'DD/MM/AAAA',
                                       hintStyle: TextStyle(
-                                        color: gray,
+                                        color: principalGray,
                                         fontFamily: 'SourceSansPro',
                                         fontSize: 20,
                                       ),
@@ -258,7 +258,7 @@ class _TelaCadastroMedicacaoState extends State<TelaCadastroMedicacao> {
                                     decoration: InputDecoration(
                                       hintText: 'HH:MM',
                                       hintStyle: TextStyle(
-                                        color: gray,
+                                        color: principalGray,
                                         fontFamily: 'SourceSansPro',
                                         fontSize: 20,
                                       ),

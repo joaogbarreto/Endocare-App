@@ -43,29 +43,31 @@ class _TelaHomePagesState extends State<TelaHomePages> {
           onPageChanged: setPaginaAtual,
         ),
         bottomNavigationBar: BottomNavigationBar(
+          fixedColor: secondaryColorblue,
+          showSelectedLabels: null,
+          showUnselectedLabels: null,
+          iconSize: 40,
           items: <BottomNavigationBarItem>[
             BottomNavigationBarItem(
               icon: Icon(
                 Icons.bar_chart_sharp,
-                color: black2,
+                color: secondaryColorblue,
               ),
-              label: 'Analise',
+              label: 'Análise',
             ),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.home,
-                  color: black2,
+                  color: secondaryColorblue,
                 ),
-                label: ''),
+                label: 'Home'),
             BottomNavigationBarItem(
                 icon: Icon(
                   Icons.notifications,
-                  color: black2,
+                  color: secondaryColorblue,
                 ),
-                label: ''),
+                label: 'Emergência'),
           ],
-          unselectedItemColor: Colors.transparent,
-          selectedItemColor: Colors.transparent,
           currentIndex: _currentPage,
           onTap: (pagina) {
             pc.animateToPage(pagina,

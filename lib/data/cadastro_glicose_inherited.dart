@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:primeiroprojeto/widgets/cardglicose.dart';
+import 'package:primeiroprojeto/widgets/card-glicose.dart';
 
 class CadastroGlicoseInherited extends InheritedWidget {
   CadastroGlicoseInherited({

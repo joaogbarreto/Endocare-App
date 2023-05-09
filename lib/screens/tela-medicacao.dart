@@ -4,10 +4,13 @@ import 'package:intl/intl.dart';
 import 'package:mask_text_input_formatter/mask_text_input_formatter.dart';
 import 'package:primeiroprojeto/data/cadastro_medicacao_inherited.dart';
 import 'package:primeiroprojeto/objects/medicacao.dart';
+import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/widgets/card-medicacao.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
+
+import '../authentication/components/show_snackbar.dart';
 
 class TelaMedicacao extends StatefulWidget {
   const TelaMedicacao({Key? key}) : super(key: key);
@@ -24,7 +27,7 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
   // final _formKey = GlobalKey<FormState>();
   int _currentPage = 1;
   late PageController pc;
-  final key = const Key('123');
+  final _formKey = GlobalKey<FormState>();
   String nome = 'João';
   DateTime today = DateTime.now();
 
@@ -66,17 +69,24 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
   @override
   Widget build(BuildContext context) => CadastroMedicacaoInherited(
         child: Scaffold(
+          backgroundColor: white,
           appBar: AppBar(
-            title: const Text(
-              "Medicação",
+            title: Text(
+              "Medicações",
+              style: TextStyle(
+                color: principalColor,
+                fontFamily: "Poppins",
+                fontSize: 26,
+                fontWeight: FontWeight.bold,
+              ),
             ),
             leading: BackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
-            foregroundColor: black2,
-            backgroundColor: Colors.white,
+            foregroundColor: principalColor,
+            backgroundColor: white,
           ),
           body: (listMedicacao.isEmpty)
               ? const Center(
@@ -115,10 +125,9 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
                               showFormModal(model: listMedicacao[index]),
                           onLongPress: () => showFormModalDelete(index),
                           child: CardMedicacao(
-                            key: key,
                             hora: listMedicacao[index].hora,
                             nome: listMedicacao[index].nome,
-                            notas: listMedicacao[index].notas,
+                            observacoes: listMedicacao[index].notas,
                           ),
                         ),
                       );
@@ -126,40 +135,44 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
                   ]),
                 ),
           bottomNavigationBar: BottomNavigationBar(
+            backgroundColor: white,
+            fixedColor: secondaryColorblue,
+            showSelectedLabels: null,
+            showUnselectedLabels: null,
+            iconSize: 40,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.bar_chart_sharp,
-                  color: black2,
+                  color: secondaryColorblue,
                 ),
-                label: '',
+                label: 'Análise',
               ),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: black2,
+                    color: secondaryColorblue,
                   ),
-                  label: ''),
+                  label: 'Home'),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.notifications,
-                    color: black2,
+                    color: secondaryColorblue,
                   ),
-                  label: ''),
+                  label: 'Emergência'),
             ],
-            unselectedItemColor: Colors.transparent,
-            selectedItemColor: Colors.transparent,
             currentIndex: _currentPage,
             onTap: (pagina) {
-              Navigator.pop(context);
+              pc.animateToPage(pagina,
+                  duration: Duration(milliseconds: 400), curve: Curves.ease);
             },
           ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: principalColor,
             shape: const CircleBorder(),
-            child: const Icon(
+            child: Icon(
               Icons.add,
-              color: Colors.white,
+              color: white,
             ),
             onPressed: () {
               showFormModal();
@@ -197,55 +210,51 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
         final hours = dateTime.hour.toString().padLeft(2, '0');
         final minutes = dateTime.minute.toString().padLeft(2, '0');
         var hora = "$hours:$minutes";
-        return Container(
-          height: MediaQuery.of(context).size.height,
-          padding: const EdgeInsets.all(32.0),
+        return Form(
+          key: _formKey,
+          child: Container(
+            height: MediaQuery.of(context).size.height,
+            padding: const EdgeInsets.all(32.0),
 
-          // Formulário com Título, Campo e Botões
-          child: ListView(
-            children: [
-              Text(labelTitle,
-                  style: Theme.of(context).textTheme.headlineSmall),
-              TextFormField(
-                controller: nameController,
-                decoration:
-                    const InputDecoration(label: Text("Nome da Medicação")),
-              ),
-              TextFormField(
-                controller: notasController,
-                decoration: const InputDecoration(label: Text("Notas")),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Container(
-                alignment: Alignment.centerLeft,
-                child: TextButton(
-                  onPressed: () async {
-                    final time = await pickTime();
-                    if (time == null) return;
-                    final newDateTime = DateTime(dateTime.year, dateTime.month,
-                        dateTime.day, time.hour, time.minute);
-                    setState(() => dateTime = newDateTime);
-                    hora = "$hours:$minutes";
-                  },
-                  child: Text('Horário: $hours:$minutes'),
+            // Formulário com Título, Campo e Botões
+            child: ListView(
+              children: [
+                Text(labelTitle,
+                    style: Theme.of(context).textTheme.headlineSmall),
+                TextFormField(
+                  controller: nameController,
+                  decoration:
+                      const InputDecoration(label: Text("Nome da Medicação")),
                 ),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Row(mainAxisAlignment: MainAxisAlignment.end, children: [
-                TextButton(
-                  onPressed: () {
-                    Navigator.pop(context);
-                  },
-                  child: Text(labelSkipButton),
+                TextFormField(
+                  controller: notasController,
+                  decoration: const InputDecoration(label: Text("Observações")),
                 ),
                 const SizedBox(
-                  width: 16,
+                  height: 16,
                 ),
+                Container(
+                  alignment: Alignment.centerLeft,
+                  child: TextButton(
+                    onPressed: () async {
+                      final time = await pickTime();
+                      if (time == null) return;
+                      final newDateTime = DateTime(dateTime.year, dateTime.month,
+                          dateTime.day, time.hour, time.minute);
+                      setState(() => dateTime = newDateTime);
+                      hora = "$hours:$minutes";
+                    },
+                    child: Text('Horário: $hours:$minutes'),
+                  ),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+
                 ElevatedButton(
+
+                  style: buttonFilledPrimary,
+
                   onPressed: () {
                     // Criar um objeto Listin com as infos
                     Medicacao medicacao = Medicacao(
@@ -259,7 +268,7 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
                     if (model != null) {
                       medicacao.id = model.id;
                     }
-
+                    showSnackBar(context: context, mensagem: "Medicação registrado com sucesso!");
                     // Salvar no Firestore
                     firestore
                         .collection("medicacao")
@@ -271,11 +280,31 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
 
                     // Fechar o Modal
                     Navigator.pop(context);
+                    showSnackBar(context: context, mensagem: "Medicação registrado com sucesso!");
                   },
-                  child: Text(labelConfirmationButton),
+                  child: Text(labelConfirmationButton, style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5),),
                 ),
-              ])
-            ],
+                const SizedBox(
+                  height: 16,
+                ),
+                ElevatedButton(
+
+                  style: buttonFilledPrimary,
+                  onPressed: () {
+                    Navigator.pop(context);
+                  },
+                  child: Text(labelSkipButton, style: TextStyle(
+                      fontFamily: "Poppins",
+                      fontSize: 20,
+                      fontWeight: FontWeight.bold,
+                      letterSpacing: 1.5),),
+                ),
+              ],
+            ),
           ),
         );
       },
@@ -316,7 +345,7 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
         ),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height*0.4,
             padding: const EdgeInsets.all(32.0),
             child: ListView(
               children: [
@@ -329,20 +358,31 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                        style: buttonFilledPrimary,
                         onPressed: () {
                           remove(listMedicacao[index]);
 
                           Navigator.pop(context);
+                          showSnackBar(context: context, mensagem: "Registro Excluído com sucesso");
                         },
-                        child: Text("Sim")),
+                        child: Text("Sim", style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5),)),
                     const SizedBox(
                       height: 16,
                     ),
-                    TextButton(
+                    ElevatedButton(
+                      style: buttonFilledPrimary,
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Não"),
+                      child: Text("Não", style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5),),
                     )
                   ],
                 )

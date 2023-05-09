@@ -2,34 +2,34 @@ import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/endocare_icons.dart';
 
-final TextStyle styleTextField = TextStyle(
-  fontFamily: "SourceSansPro",
+final TextStyle styleTextFieldHint = TextStyle(
+  fontFamily: "Poppins",
   fontSize: 18,
-  color: principalColor,
+  color: principalGray,
   fontWeight: FontWeight.bold,
 );
 final TextStyle styleTextFieldWhite = TextStyle(
-  fontFamily: "SourceSansPro",
+  fontFamily: "Poppins",
   fontSize: 18,
   color: white,
   fontWeight: FontWeight.bold,
 );
+final TextStyle styleTextFieldPrincipalColor = TextStyle(
+  fontFamily: "Poppins",
+  fontSize: 18,
+  color: principalColor,
+  fontWeight: FontWeight.bold,
+);
 final TextStyle styleText = TextStyle(
-  fontFamily: "SourceSansPro",
+  fontFamily: "Poppins",
   fontSize: 16,
   color: principalColor,
   fontWeight: FontWeight.bold,
 );
 final TextStyle styleTextMenu = TextStyle(
-  fontFamily: "SourceSansPro",
+  fontFamily: "Poppins",
   fontSize: 20,
   color: black,
-  fontWeight: FontWeight.bold,
-);
-final TextStyle styleTextRed = TextStyle(
-  fontFamily: "SourceSansPro",
-  fontSize: 16,
-  color: terciaryColor,
   fontWeight: FontWeight.bold,
 );
 final InputDecoration styleinputprimary = InputDecoration(
@@ -43,7 +43,7 @@ final InputDecoration styleinputprimary = InputDecoration(
       BorderSide(color: secondaryColor, width: 2.0),
       borderRadius: BorderRadius.circular(50)),
   hintText: 'E-Mail',
-  hintStyle: styleTextField,
+  hintStyle: styleTextFieldHint,
   fillColor: white,
   filled: true,
   focusedBorder: OutlineInputBorder(
@@ -63,7 +63,7 @@ final InputDecoration styleinputnome = InputDecoration(
       BorderSide(color: secondaryColor, width: 2.0),
       borderRadius: BorderRadius.circular(50)),
   hintText: 'Nome',
-  hintStyle: styleTextField,
+  hintStyle: styleTextFieldHint,
   fillColor: white,
   filled: true,
   focusedBorder: OutlineInputBorder(

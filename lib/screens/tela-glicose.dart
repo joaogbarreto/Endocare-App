@@ -1,11 +1,13 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:primeiroprojeto/authentication/components/show_snackbar.dart';
 import 'package:primeiroprojeto/data/cadastro_glicose_inherited.dart';
 import 'package:primeiroprojeto/objects/glicose.dart';
+import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
-import 'package:primeiroprojeto/widgets/cardglicose.dart';
+import 'package:primeiroprojeto/widgets/card-glicose.dart';
 import 'package:primeiroprojeto/widgets/line-chart.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
@@ -21,10 +23,9 @@ class TelaGlicose extends StatefulWidget {
 
 class _TelaGlicoseState extends State<TelaGlicose> {
   late final TabController _tabController;
-  final _formKey = GlobalKey<FormState>();
   int _currentPage = 1;
   late PageController pc;
-  final key = const Key('123');
+  final _formKey = GlobalKey<FormState>();
   String nome = 'João';
   var obscureText = true;
 
@@ -54,16 +55,21 @@ class _TelaGlicoseState extends State<TelaGlicose> {
   @override
   Widget build(BuildContext context) => CadastroGlicoseInherited(
         child: Scaffold(
+          backgroundColor: white,
           appBar: AppBar(
-            title: Text(
-              "Registrar Glicose",
-            ),
+            title: Text("Registrar Glicose",
+                style: TextStyle(
+                  color: principalColor,
+                  fontFamily: "Poppins",
+                  fontSize: 26,
+                  fontWeight: FontWeight.bold,
+                ),),
             leading: BackButton(
               onPressed: () {
                 Navigator.pop(context);
               },
             ),
-            foregroundColor: black2,
+            foregroundColor: principalColor,
             backgroundColor: white,
           ),
           body: (listGlicose.isEmpty)
@@ -115,7 +121,6 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                               showFormModal(model: listGlicose[index]),
                           onLongPress: () => showFormModalDelete(index),
                           child: CardGlicose(
-                            key: key,
                             hora: listGlicose[index].hora,
                             concentracaoSugarSangue: listGlicose[index]
                                 .sugarConcentration
@@ -127,32 +132,35 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                   ]),
                 ),
           bottomNavigationBar: BottomNavigationBar(
+            fixedColor: secondaryColorblue,
+            showSelectedLabels: null,
+            showUnselectedLabels: null,
+            iconSize: 40,
             items: <BottomNavigationBarItem>[
               BottomNavigationBarItem(
                 icon: Icon(
                   Icons.bar_chart_sharp,
-                  color: black2,
+                  color: secondaryColorblue,
                 ),
-                label: '',
+                label: 'Análise',
               ),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.home,
-                    color: black2,
+                    color: secondaryColorblue,
                   ),
                   label: ''),
               BottomNavigationBarItem(
                   icon: Icon(
                     Icons.notifications,
-                    color: black2,
+                    color: secondaryColorblue,
                   ),
                   label: ''),
             ],
-            unselectedItemColor: Colors.transparent,
-            selectedItemColor: Colors.transparent,
             currentIndex: _currentPage,
             onTap: (pagina) {
-              Navigator.pop(context);
+              pc.animateToPage(pagina,
+                  duration: Duration(milliseconds: 400), curve: Curves.ease);
             },
           ),
           floatingActionButton: FloatingActionButton(
@@ -201,69 +209,74 @@ class _TelaGlicoseState extends State<TelaGlicose> {
           padding: const EdgeInsets.all(32.0),
 
           // Formulário com Título, Campo e Botões
-          child: ListView(
-            children: [
-              Text(labelTitle, style: Theme.of(context).textTheme.headline5),
-              TextFormField(
-                keyboardType: TextInputType.number,
-                controller: glicoseController,
-                decoration: const InputDecoration(
-                    label: Text("Quantidade de Glicose Medida")),
-              ),
-              const SizedBox(
-                height: 16,
-              ),
-              Column(
-                crossAxisAlignment: CrossAxisAlignment.center,
-                children: [
-                  ElevatedButton(
+          child: Form(
+            key: _formKey,
+            child: ListView(
+              children: [
+                Text(labelTitle, style: Theme.of(context).textTheme.headline5),
+                TextFormField(
+                  keyboardType: TextInputType.number,
+                  controller: glicoseController,
+                  decoration: const InputDecoration(
+                      label: Text("Quantidade de Glicose Medida")),
+                ),
+                const SizedBox(
+                  height: 16,
+                ),
+                Column(
+                  crossAxisAlignment: CrossAxisAlignment.center,
+                  children: [
+                    ElevatedButton(
+                        onPressed: () {
+                          // Criar um objeto Glicose com as infos
+
+                          Glicose glicose = Glicose(
+                              id: const Uuid().v1(),
+                              sugarConcentration:
+                                  double.parse(glicoseController.text),
+                              day: DateTime.now().day.toDouble(),
+                              hora: hora =
+                                  DateFormat('KK:mm').format(DateTime.now()));
+
+                          // Usar id do model
+                          if (model != null) {
+                            glicose.id = model.id;
+                          }
+                          showSnackBar(context: context, mensagem: "Nivel Glicêmico registrado com sucesso!");
+                          // Salvar no Firestore
+                          firestore
+                              .collection("glicose")
+                              .doc(glicose.id)
+                              .set(glicose.toMap());
+                          // Atualizar a lista
+                          refresh();
+                          if (model != null) {
+                            CadastroGlicoseInherited.of(context)
+                                .newCadastroGlicose(hora, glicoseController.text);
+                          } else {
+                            CadastroGlicoseInherited.of(context)
+                                .newCadastroGlicose(
+                                    glicose.hora, glicoseController.text);
+                          }
+                          showSnackBar(context: context, mensagem: "Nível Glicêmico registrado com sucesso!");
+                          // Fechar o Modal
+                          Navigator.pop(context);
+                          showSnackBar(context: context, mensagem: "Nível Glicêmico registrado com sucesso!");
+                        },
+                        child: Text(labelConfirmationButton)),
+                    const SizedBox(
+                      height: 16,
+                    ),
+                    TextButton(
                       onPressed: () {
-                        // Criar um objeto Glicose com as infos
-
-                        Glicose glicose = Glicose(
-                            id: const Uuid().v1(),
-                            sugarConcentration:
-                                double.parse(glicoseController.text),
-                            day: DateTime.now().day.toDouble(),
-                            hora: hora =
-                                DateFormat('KK:mm').format(DateTime.now()));
-
-                        // Usar id do model
-                        if (model != null) {
-                          glicose.id = model.id;
-                        }
-
-                        // Salvar no Firestore
-                        firestore
-                            .collection("glicose")
-                            .doc(glicose.id)
-                            .set(glicose.toMap());
-                        // Atualizar a lista
-                        refresh();
-                        if (model != null) {
-                          CadastroGlicoseInherited.of(context)
-                              .newCadastroGlicose(hora, glicoseController.text);
-                        } else {
-                          CadastroGlicoseInherited.of(context)
-                              .newCadastroGlicose(
-                                  glicose.hora, glicoseController.text);
-                        }
-                        // Fechar o Modal
                         Navigator.pop(context);
                       },
-                      child: Text(labelConfirmationButton)),
-                  const SizedBox(
-                    height: 16,
-                  ),
-                  TextButton(
-                    onPressed: () {
-                      Navigator.pop(context);
-                    },
-                    child: Text(labelSkipButton),
-                  )
-                ],
-              )
-            ],
+                      child: Text(labelSkipButton),
+                    )
+                  ],
+                )
+              ],
+            ),
           ),
         );
       },
@@ -300,7 +313,7 @@ class _TelaGlicoseState extends State<TelaGlicose> {
         ),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height,
+            height: MediaQuery.of(context).size.height*0.4,
             padding: const EdgeInsets.all(32.0),
             child: ListView(
               children: [
@@ -313,20 +326,31 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                   crossAxisAlignment: CrossAxisAlignment.center,
                   children: [
                     ElevatedButton(
+                        style: buttonFilledPrimary,
                         onPressed: () {
                           remove(listGlicose[index]);
 
                           Navigator.pop(context);
+                          showSnackBar(context: context, mensagem: "Registro Excluído com sucesso");
                         },
-                        child: Text("Sim")),
+                        child: Text("Sim", style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5),)),
                     const SizedBox(
                       height: 16,
                     ),
-                    TextButton(
+                    ElevatedButton(
+                      style: buttonFilledPrimary,
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Não"),
+                      child: Text("Não", style: TextStyle(
+                          fontFamily: "Poppins",
+                          fontSize: 20,
+                          fontWeight: FontWeight.bold,
+                          letterSpacing: 1.5),),
                     )
                   ],
                 )

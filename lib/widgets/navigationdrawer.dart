@@ -85,7 +85,7 @@ class NavigationMenuDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(
                 Icons.account_circle,
-                color: gray,
+                color: principalGray,
                 size: 40,
               ),
               title: Text(
@@ -103,7 +103,7 @@ class NavigationMenuDrawer extends StatelessWidget {
             child: ListTile(
               leading: Icon(
                 Icons.settings_outlined,
-                color: gray,
+                color: principalGray,
                 size: 40,
               ),
               title: Text(

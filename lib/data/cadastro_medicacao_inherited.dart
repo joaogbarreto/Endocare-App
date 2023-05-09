@@ -12,7 +12,7 @@ class CadastroMedicacaoInherited extends InheritedWidget {
       key: Key('123'),
       hora: '06:00 AM',
       nome: 'Ibuprofeno',
-      notas: 'Tomei depois do café',
+      observacoes: 'Tomei depois do café',
     ),
   ];
 
@@ -21,7 +21,7 @@ class CadastroMedicacaoInherited extends InheritedWidget {
     cadastroMedicacao.add(CardMedicacao(
       hora: newHora,
       nome: newNome,
-      notas: newNotas,
+      observacoes: newNotas,
     ));
   }
 

@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
-import 'package:primeiroprojeto/widgets/cardglicose.dart';
+import 'package:primeiroprojeto/widgets/card-glicose.dart';
 
 class TelaCadastroGlicose extends StatefulWidget {
   const TelaCadastroGlicose({Key? key}) : super(key: key);
@@ -97,7 +97,7 @@ class _TelaCadastroGlicoseState extends State<TelaCadastroGlicose> {
                           decoration: InputDecoration(
                             labelText: 'mmol/L',
                             labelStyle: TextStyle(
-                                color: gray,
+                                color: principalGray,
                                 fontFamily: 'SourceSansPro',
                                 fontSize: 20),
                             fillColor: white,
@@ -143,7 +143,7 @@ class _TelaCadastroGlicoseState extends State<TelaCadastroGlicose> {
                             decoration: InputDecoration(
                               hintText: 'Antes do café',
                               hintStyle: TextStyle(
-                                color: gray,
+                                color: principalGray,
                                 fontFamily: 'SourceSansPro',
                                 fontSize: 20,
                               ),
@@ -204,7 +204,7 @@ class _TelaCadastroGlicoseState extends State<TelaCadastroGlicose> {
                                     decoration: InputDecoration(
                                       hintText: 'DD/MM/AAAA',
                                       hintStyle: TextStyle(
-                                        color: gray,
+                                        color: principalGray,
                                         fontFamily: 'SourceSansPro',
                                         fontSize: 20,
                                       ),
@@ -222,7 +222,7 @@ class _TelaCadastroGlicoseState extends State<TelaCadastroGlicose> {
                                     decoration: InputDecoration(
                                       hintText: 'HH:MM',
                                       hintStyle: TextStyle(
-                                        color: gray,
+                                        color: principalGray,
                                         fontFamily: 'SourceSansPro',
                                         fontSize: 20,
                                       ),

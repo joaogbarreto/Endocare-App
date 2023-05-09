@@ -3,17 +3,16 @@ import 'package:primeiroprojeto/styles/color.dart';
 
 final ButtonStyle buttonFilledWhite = ElevatedButton.styleFrom(
   minimumSize: Size.fromHeight(50),
-  animationDuration: Duration.zero,
   backgroundColor: white,
-  foregroundColor: secondaryColor,
+  foregroundColor: Color(0xFF2764AD),
   elevation: 0,
-  shadowColor: Colors.black,
   shape: const RoundedRectangleBorder(
-    borderRadius: BorderRadius.all(Radius.circular(25),),
+    borderRadius: BorderRadius.all(Radius.circular(25),
+    ),
   )
 );
 final ButtonStyle buttonFilledRedIcon = ElevatedButton.styleFrom(
-  minimumSize: Size.fromHeight(50),
+  minimumSize: Size.fromHeight(60),
   animationDuration: Duration.zero,
   backgroundColor: secondaryColorwhite  ,
   foregroundColor: white,
@@ -24,9 +23,9 @@ final ButtonStyle buttonFilledRedIcon = ElevatedButton.styleFrom(
   )
 );
 final ButtonStyle buttonFilledPrimary = ElevatedButton.styleFrom(
-  minimumSize: Size.fromHeight(50),
+  minimumSize: Size.fromHeight(60),
   animationDuration: Duration.zero,
-  backgroundColor: principalColor,
+  backgroundColor: Color(0xFF2764AD),
   foregroundColor: white,
   elevation: 0,
   shadowColor: Colors.black,
@@ -37,8 +36,8 @@ final ButtonStyle buttonFilledPrimary = ElevatedButton.styleFrom(
 final ButtonStyle buttonFilledSecondary = ElevatedButton.styleFrom(
   minimumSize: Size.fromHeight(50),
   animationDuration: Duration.zero,
-  backgroundColor: principalColor,
-  foregroundColor: white,
+  backgroundColor: Colors.transparent,
+  foregroundColor: newprincipalColor,
   elevation: 0,
   shadowColor: Colors.black,
   shape: const RoundedRectangleBorder(

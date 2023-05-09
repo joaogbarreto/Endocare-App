@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/objects/glicose.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
-import 'package:primeiroprojeto/widgets/cardglicose.dart';
+import 'package:primeiroprojeto/widgets/card-glicose.dart';
 import 'package:primeiroprojeto/widgets/line-chart.dart';
 
 class TelaAlimentacao extends StatefulWidget {

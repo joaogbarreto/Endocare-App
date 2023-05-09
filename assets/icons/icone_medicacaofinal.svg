@@ -1,9 +1,21 @@
-<svg width="29" height="29" viewBox="0 0 29 29" fill="none" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink">
-<rect width="29" height="29" fill="url(#pattern0)"/>
-<defs>
-<pattern id="pattern0" patternContentUnits="objectBoundingBox" width="1" height="1">
-<use xlink:href="#image0_765_466" transform="scale(0.0208333)"/>
-</pattern>
-<image id="image0_765_466" width="48" height="48" xlink:href="data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAADAAAAAwCAYAAABXAvmHAAAACXBIWXMAAAsTAAALEwEAmpwYAAACqUlEQVR4nO1Z22oUQRBtNk/GPzAKvkXRPzAQwSdF0Tc/Qc3GC+pDQH/CFzH45hcoxv+QGIP5io26s3WqJJQUmSVrZy47M907I8yBgWV35vQ5vT1V1dXO9ejRY2GYTCYXROQRM+8w8z6AQwAj+8zMn+23JEnOu67BRDHzGwBgZi26AAiAD0R00XUBAG7aTJcJ59NGfgG417b45wCOqornExNHRPS4LfFbOaJ2iWgIYFVVz9gF4BIRbQL4lmUCwO3WxdvyF5ENVR3kPaeqg9Qce8/+TJJkpU3xv0VkfV4OIrqRYeJdm+LXqnIR0dCPTlH/BQAvM8SPieh6HT5VHQD4OssnIg87P/OzAPDE4/3k/hfxBgCXPe591+Vl48NCrMc9cpFnfhxi5qdQ1eUoBgqS1B9mvh9kEBdpCeWJj2ECp1/ij1GWTSo6qAlVXQKw54XRB1GijYkNbYKINjMS2bng4qf3hDQhIusZpcTbaOJDmhCRNeP3OA5rzb7V81WTVBMTki3eyulbdcTf8Tcj82bYOiYkQ3z63Itam2/b0jUpD6qYkHzxW64OALzP2IzMXc9XMSGhxaez/8+g1u6oRVZiQkKLz9lI7BZtA5uYADAOKj4dbGeW0BJKI8ICExxafDrQD490NYSBMhMIId7gN6GsJg9CfPLChl82JQaWXQCIyDU/NPOx+NcuJGIsoSjRJg/WJQ75Ei9UvMG6Z95Ae3XDaMGyeeViYXKcyMRLZBudn/lZANj2Swlr97k5YV2J1sRPDySsoZphYljSnF1Ku8zcmvgprKWd1du3dwLAU2a+oqpn7WLmqwCeMfP3qEmqKuxwoekBhW2KXAeOiEY1j4juui4gSZKViod02ws7kKgaYtNy+wszH6Q9IattDuw7C7d2TyXSHj16uCb4C66T9o8qejQEAAAAAElFTkSuQmCC"/>
-</defs>
+<?xml version="1.0" standalone="no"?>
+<!DOCTYPE svg PUBLIC "-//W3C//DTD SVG 20010904//EN"
+ "http://www.w3.org/TR/2001/REC-SVG-20010904/DTD/svg10.dtd">
+<svg version="1.0" xmlns="http://www.w3.org/2000/svg"
+ width="87.000000pt" height="87.000000pt" viewBox="0 0 87.000000 87.000000"
+ preserveAspectRatio="xMidYMid meet">
+
+<g transform="translate(0.000000,87.000000) scale(0.100000,-0.100000)"
+fill="#000000" stroke="none">
+<path d="M307 841 c-270 -89 -381 -402 -227 -640 126 -194 391 -249 589 -121
+284 184 239 629 -76 751 -82 31 -208 36 -286 10z m212 -12 c121 -28 249 -135
+289 -242 62 -165 25 -326 -104 -447 -166 -154 -405 -143 -564 26 -152 163
+-143 403 21 559 101 96 230 134 358 104z"/>
+<path d="M337 688 c-11 -9 -17 -31 -19 -73 l-3 -60 -60 -3 c-78 -4 -85 -14
+-85 -117 0 -103 7 -113 85 -117 l60 -3 3 -60 c4 -78 14 -85 117 -85 103 0 113
+7 117 85 l3 60 60 3 c78 4 85 14 85 117 0 103 -7 113 -85 117 l-60 3 -3 60
+c-4 78 -14 85 -117 85 -49 0 -88 -5 -98 -12z m193 -88 l5 -65 65 -5 65 -5 0
+-90 0 -90 -65 -5 -65 -5 -5 -65 -5 -65 -90 0 -90 0 -5 65 -5 65 -65 5 -65 5 0
+90 0 90 65 5 65 5 3 55 c4 84 1 81 99 78 l88 -3 5 -65z"/>
+</g>
 </svg>
