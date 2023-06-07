@@ -33,6 +33,29 @@ final ButtonStyle buttonFilledPrimary = ElevatedButton.styleFrom(
     borderRadius: BorderRadius.all(Radius.circular(25),),
   )
 );
+final ButtonStyle buttonFilledDialog = ElevatedButton.styleFrom(
+    minimumSize: Size(40, 40),
+  animationDuration: Duration.zero,
+  backgroundColor: Color(0xFF2764AD),
+  foregroundColor: white,
+  elevation: 0,
+  shadowColor: Colors.black,
+  shape: const RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(25),),
+  )
+);
+final ButtonStyle buttonEmptyDialog = ElevatedButton.styleFrom(
+  minimumSize: Size(40, 40),
+  animationDuration: Duration.zero,
+  backgroundColor: white,
+  foregroundColor: Color(0xFF2764AD),
+  elevation: 0,
+  shadowColor: Colors.black,
+  side: BorderSide(width: 1, color: principalColor),
+  shape: RoundedRectangleBorder(
+    borderRadius: BorderRadius.all(Radius.circular(25),),
+  )
+);
 final ButtonStyle buttonFilledSecondary = ElevatedButton.styleFrom(
   minimumSize: Size.fromHeight(50),
   animationDuration: Duration.zero,

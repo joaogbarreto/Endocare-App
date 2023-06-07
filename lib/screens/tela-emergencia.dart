@@ -5,6 +5,8 @@ import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart'
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/endocare_icons.dart';
+import 'package:primeiroprojeto/widgets/HorizontalSliverList.dart';
+import 'package:primeiroprojeto/widgets/card-contato.dart';
 import 'package:primeiroprojeto/widgets/card-insulina.dart';
 import 'package:primeiroprojeto/widgets/card-medicacao.dart';
 import 'package:primeiroprojeto/widgets/card-glicose.dart';
@@ -12,15 +14,16 @@ import 'package:primeiroprojeto/widgets/line-chart.dart';
 import 'package:primeiroprojeto/widgets/navigationdrawer.dart';
 
 import '../data/cadastro_glicose_inherited.dart';
+import '../firestore/firestore_contatos_emergencia/models/contatos.dart';
 
-class TelaHomeUsuario extends StatefulWidget {
-  const TelaHomeUsuario({Key? key}) : super(key: key);
+class TelaEmergencia extends StatefulWidget {
+  const TelaEmergencia({Key? key}) : super(key: key);
 
   @override
-  State<TelaHomeUsuario> createState() => _TelaHomeUsuarioState();
+  State<TelaEmergencia> createState() => _TelaEmergenciaState();
 }
 
-class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
+class _TelaEmergenciaState extends State<TelaEmergencia> {
   late final TabController _tabController;
   final _formKey = GlobalKey<FormState>();
   int _currentPage = 0;
@@ -28,57 +31,56 @@ class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
   final key = const Key('123');
   String nome = 'João';
 
+  List<ContatosEmergencia> listContatosEmergencia = [];
+
   @override
   Widget build(BuildContext context) => Scaffold(
         backgroundColor: white,
         body: CustomScrollView(slivers: <Widget>[
           SliverToBoxAdapter(
-            child: Row(
-            crossAxisAlignment: CrossAxisAlignment.end,
-            mainAxisAlignment: MainAxisAlignment.spaceBetween,
-            children: <Widget>[
-              Padding(
-                padding: const EdgeInsets.only(
-                    left: 20.0, right: 30, top: 40, bottom: 10),
-                child: Container(
-                    child: Column(
-                      children: <Widget>[
-                        Container(
-                          child: Text('Olá,',
-                              style: TextStyle(
-                                fontFamily: "Poppins",
-                                fontSize: 22,
-                                color: black,
-                                fontWeight: FontWeight.bold,
-                              )),
-                    ),
-                     Padding(
-                       padding: const EdgeInsets.only(left: 8.0),
-                       child: Container(
-                          child: Text(
+            child: Container(
+                child: Row(
+              mainAxisAlignment: MainAxisAlignment.spaceBetween,
+              children: <Widget>[
+                Padding(
+                  padding: const EdgeInsets.only(
+                      left: 20.0, right: 30, top: 40, bottom: 10),
+                  child: Container(
+                      child: Column(
+                    children: <Widget>[
+                      Container(
+                        child: Text('Olá,',
+                            style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 22,
+                              color: black,
+                              fontWeight: FontWeight.bold,
+                            )),
+                      ),
+                      Padding(
+                        padding: const EdgeInsets.only(left: 8.0),
+                        child: Container(
+                            child: Text(
                           nome,
                           style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 22,
-                            color: black,
-                            fontWeight: FontWeight.bold),
-                      )),
-                    )
-                  ],
-                )),
-              ),
-              GestureDetector(
-                onTap: ()=> Navigator.pushNamed(context, '/TelaPerfilUsuario'),
-                child: Padding(
-                  padding: EdgeInsets.only(top: 10, right: 30),
-                  child: CircleAvatar(
-                    radius: 30,
-                    backgroundImage: NetworkImage('https://cdn-icons-png.flaticon.com/512/6073/6073873.png'),
-                  ),
+                              fontFamily: "Poppins",
+                              fontSize: 22,
+                              color: black,
+                              fontWeight: FontWeight.bold),
+                        )),
+                      )
+                    ],
+                  )),
                 ),
-              )
+                Container(
+                  width: MediaQuery.of(context).size.width * 0.1,
+                  decoration: BoxDecoration(
+                    shape: BoxShape.circle,
+                    color: newprincipalColor,
+                  ),
+                )
               ],
-            ),
+            )),
           ),
           SliverToBoxAdapter(
             child: Padding(
@@ -88,50 +90,48 @@ class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
                 height: MediaQuery.of(context).size.height * 0.20,
                 decoration: BoxDecoration(
                     color: backCards,
-                    borderRadius: BorderRadius.circular(25),
+                    borderRadius: BorderRadius.circular(55),
                     boxShadow: const [
                       BoxShadow(
                           color: Color(0xFFe8e8e8),
                           blurRadius: 5.0,
                           offset: Offset(0, 5)),
                     ]),
-                child: Row(
-                  mainAxisAlignment: MainAxisAlignment.spaceBetween,
-                  children: [
-                    Container(
-                      alignment: Alignment.center,
-                      width: MediaQuery.of(context).size.width * 0.4,
-                      height: MediaQuery.of(context).size.height * 0.20,
-                      // child: SvgPicture.asset(
-                      //   'assets/virtual_ai1.svg',
-                      //   fit: BoxFit.fill,
-                      // ),
-                      child: Image.asset(
-                        'assets/virtual_ai1.png',
-                        width: double.infinity,
-                        height: double.infinity,
-                      ),
-                    ), // imagem
-                    Padding(
-                      padding: const EdgeInsets.symmetric(
-                          horizontal: 16.0, vertical: 20.0),
-                      child: Container(
-                        width: MediaQuery.of(context).size.width * 0.4,
-                        child: Text(
-                          'Olá tudo bem? Eu sou a Margô e estou aqui para acompanhar você.',
-                          style: TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 22,
-                              color: black,
-                              fontWeight: FontWeight.bold),
-                          textAlign: TextAlign.center,
-                        ),
-                      ),
-                    ),
-                  ],
+                child: Image.asset(
+                  'assets/imagem_ambulancia.png',
+                  fit: BoxFit.cover,
                 ),
               ),
             ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  margin: EdgeInsets.only(left: 15),
+                  child: Text(
+                    'Contatos de Emergência',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
+            ),
+          ),
+          HorizontalSliverList(
+            children: [
+              InkWell(
+              // onDoubleTap: () =>
+              //     showFormModal(model: listGlicose[index]),
+              // onLongPress: () => showDialog(
+              //     context: context,
+              //     builder: (context) => showDialogModal(index)),
+              child: CardContato(
+                nome: 'Mae',
+              ),
+            ),
+            ]
           ),
           SliverToBoxAdapter(
             child: Row(
@@ -150,7 +150,7 @@ class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
                           width: MediaQuery.of(context).size.width * 0.2,
                           child: ElevatedButton(
                               onPressed: () {
-                                Navigator.pushNamed(context, '/TelaInsulina');
+                                // Navigator.pushNamed(context, '/TelaInsulina');
                               },
                               style: buttonFilledRedIcon,
                               child: FaIcon(

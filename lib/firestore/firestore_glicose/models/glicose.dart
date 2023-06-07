@@ -1,4 +1,3 @@
-import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:collection/collection.dart';
 
 class Glicose {
@@ -6,21 +5,24 @@ class Glicose {
   double sugarConcentration;
   double day;
   String hora;
+  String? data;
 
-  Glicose({this.id,required this.sugarConcentration, required this.day, required this.hora});
+  Glicose({this.id,required this.sugarConcentration, required this.day, required this.hora, this.data});
 
   Glicose.fromMap(Map<String, dynamic> map)
       : id = map["id"],
         sugarConcentration = map["sugar Concentration"],
         day = map["day"],
-        hora = map["hora"];
+        hora = map["hora"],
+        data = map["data"];
 
   Map<String, dynamic> toMap() {
     return {
       "id": id,
       "sugar Concentration": sugarConcentration,
       "day": day,
-      "hora": hora
+      "hora": hora,
+      "data": data
     };
   }
 }

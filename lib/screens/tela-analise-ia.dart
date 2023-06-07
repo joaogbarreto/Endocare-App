@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:primeiroprojeto/objects/glicose.dart';
+import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart';
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/endocare_icons.dart';
@@ -66,11 +66,15 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
                         ],
                       )),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: newprincipalColor,
+                GestureDetector(
+                  onTap: ()=> Navigator.pushNamed(context, '/TelaPerfilUsuario'),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 9, right: 30),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: const NetworkImage(
+                          'https://cdn-icons-png.flaticon.com/512/6073/6073873.png'),
+                    ),
                   ),
                 )
               ],
@@ -92,7 +96,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.20,
                   // child: SvgPicture.asset(
                   //   'assets/virtual_ai1.svg',
@@ -104,7 +108,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 30.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
                       'Olá, parece que a sua glicose está alta hoje',
                       style: TextStyle(
@@ -138,7 +142,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.20,
                   // child: SvgPicture.asset(
                   //   'assets/virtual_ai1.svg',
@@ -150,7 +154,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 30.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
                       'Olá, parece que você ainda não cadastrou a sua glicose hoje',
                       style: TextStyle(
@@ -184,7 +188,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Container(
-                  width: MediaQuery.of(context).size.width * 0.35,
+                  width: MediaQuery.of(context).size.width * 0.4,
                   height: MediaQuery.of(context).size.height * 0.20,
                   // child: SvgPicture.asset(
                   //   'assets/virtual_ai1.svg',
@@ -196,7 +200,7 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
                   padding: const EdgeInsets.symmetric(
                       horizontal: 16.0, vertical: 30.0),
                   child: Container(
-                    width: MediaQuery.of(context).size.width * 0.35,
+                    width: MediaQuery.of(context).size.width * 0.4,
                     child: Text(
                       'Olá, você sabia que para ter uma boa qualidade de vida é bom...',
                       style: TextStyle(

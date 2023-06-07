@@ -8,9 +8,10 @@ enum _MenuValues { Editar, Excluir }
 class CardGlicose extends StatefulWidget {
   final String hora;
   final String concentracaoSugarSangue;
+  final String data;
 
   CardGlicose(
-      {Key? key, required this.hora, required this.concentracaoSugarSangue})
+      {Key? key, required this.hora, required this.concentracaoSugarSangue, required this.data})
       : super(key: key);
 
   @override
@@ -44,7 +45,7 @@ class _Glicose extends State<CardGlicose> {
                     Container(
                       width: MediaQuery.of(context).size.width*0.45,
                       child: Text(
-                        widget.hora,
+                        "${widget.hora} - ${widget.data}",
                         style: TextStyle(
                             fontFamily: 'Poppins', fontSize: 22, color: black2),
                         textAlign: TextAlign.center,
@@ -78,19 +79,67 @@ class _Glicose extends State<CardGlicose> {
                 color: backCards,
               ),
               child: Column(
-                mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                mainAxisAlignment: MainAxisAlignment.center,
                 children: <Widget>[
-                  Image.asset('assets/rosto_ia.png'),
-                  Container(
-                    child: Text(
-                      'Bom, parece que você está com hipoglicemia hoje',
-                      style: TextStyle(
-                        fontFamily: 'Poppins',
-                        fontSize: 18,
-                      ),
-                      textAlign: TextAlign.center,
+                  if(double.parse(widget.concentracaoSugarSangue)<=70)
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Image.asset('assets/rosto_ia.png'),
+                        Container(
+                          child: Text(
+                            'Que pena, sua glicemia está abaixo do indicado',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
                     ),
-                  )
+                  ),
+                  if(double.parse(widget.concentracaoSugarSangue)>=120)
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Image.asset('assets/rosto_ia.png'),
+                        Container(
+                          child: Text(
+                            'Que pena, sua glicemia está acima do que é indicado',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
+                  if(double.parse(widget.concentracaoSugarSangue)<120 && double.parse(widget.concentracaoSugarSangue)>70)
+                  Expanded(
+                    child: Column(
+                      mainAxisAlignment: MainAxisAlignment.spaceEvenly,
+                      children: <Widget>[
+                        Image.asset('assets/rosto_ia_feliz.png'),
+                        Container(
+                          child: Text(
+                            'Parabéns, sua glicemia está na média normal',
+                            style: TextStyle(
+                              fontFamily: 'Poppins',
+                              fontSize: 18,
+                            ),
+                            textAlign: TextAlign.center,
+                          ),
+                        )
+                      ],
+                    ),
+                  ),
+
                 ],
               ),
             ),

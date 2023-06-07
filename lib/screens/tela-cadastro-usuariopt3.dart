@@ -195,12 +195,12 @@ class _TelaCadastroUsuarioPT3State extends State<TelaCadastroUsuarioPT3> {
                                   validator: (String? value) {
                                     return null;
 
-                                    // if (value != null && value.isEmpty) {
-                                    //   return 'Insira seu Email';
-                                    // } else if (value == 'adm' || value == 'ADM') {
-                                    //   return null;
-                                    // }
-                                    // return 'Insira um Email valido';
+                                    if (value != null && value.isEmpty) {
+                                      return 'Insira seu Email';
+                                    } else if (value == 'adm' || value == 'ADM') {
+                                      return null;
+                                    }
+                                    return 'Insira um Email valido';
                                   },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.text,

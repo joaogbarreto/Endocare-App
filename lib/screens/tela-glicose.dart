@@ -1,18 +1,20 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:primeiroprojeto/authentication/components/show_snackbar.dart';
 import 'package:primeiroprojeto/data/cadastro_glicose_inherited.dart';
-import 'package:primeiroprojeto/objects/glicose.dart';
+import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart';
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 import 'package:primeiroprojeto/widgets/card-glicose.dart';
 import 'package:primeiroprojeto/widgets/line-chart.dart';
+import 'package:syncfusion_flutter_charts/charts.dart';
 import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
 
-import '../objects/glicose.dart';
+import '../firestore/firestore_glicose/models/glicose.dart';
 
 class TelaGlicose extends StatefulWidget {
   const TelaGlicose({Key? key}) : super(key: key);
@@ -46,6 +48,17 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     });
   }
 
+  bool isSorted = false;
+
+  sort() {
+    if (!isSorted) {
+      listGlicose.sort((Glicose a, Glicose b) => a.day.compareTo(b.day));
+      isSorted = true;
+    } else {
+      listGlicose = listGlicose.reversed.toList();
+    }
+  }
+
   get screenWidth => MediaQuery.of(context).size.width;
 
   get screenHeight => MediaQuery.of(context).size.height;
@@ -53,127 +66,108 @@ class _TelaGlicoseState extends State<TelaGlicose> {
   late String valueChoose;
 
   @override
-  Widget build(BuildContext context) => CadastroGlicoseInherited(
-        child: Scaffold(
-          backgroundColor: white,
-          appBar: AppBar(
-            title: Text("Registrar Glicose",
-                style: TextStyle(
-                  color: principalColor,
-                  fontFamily: "Poppins",
-                  fontSize: 26,
-                  fontWeight: FontWeight.bold,
-                ),),
-            leading: BackButton(
-              onPressed: () {
-                Navigator.pop(context);
-              },
+  Widget build(BuildContext context) => Scaffold(
+        backgroundColor: white,
+        appBar: AppBar(
+          title: Text(
+            "Registrar Glicose",
+            style: TextStyle(
+              color: principalColor,
+              fontFamily: "Poppins",
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
             ),
-            foregroundColor: principalColor,
-            backgroundColor: white,
           ),
-          body: (listGlicose.isEmpty)
-              ? const Center(
-                  child: Text(
-                    "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
-                    textAlign: TextAlign.center,
-                    style: TextStyle(fontSize: 18),
-                  ),
-                )
-              : RefreshIndicator(
-                  onRefresh: () {
-                    return refresh();
-                  },
-                  child: CustomScrollView(slivers: <Widget>[
-                    SliverToBoxAdapter(
-                      child: Container(
-                        margin: EdgeInsets.only(top: 20),
-                        child: LineChartWidget(bloodGlicose),
-                      ),
-                    ),
-                    SliverToBoxAdapter(
-                      child: Padding(
-                        padding: const EdgeInsets.symmetric(
-                            horizontal: 24.0, vertical: 12),
-                        child: Container(
-                          child: Row(
-                            children: [
-                              Container(
-                                margin: EdgeInsets.symmetric(horizontal: 5),
-                                height: 10,
-                                width: 10,
-                                decoration: BoxDecoration(
-                                    color: Colors.red,
-                                    borderRadius: BorderRadius.circular(50)),
-                              ),
-                              Text('Açucar no Sangue'),
-                            ],
-                          ),
-                        ),
-                      ),
-                    ),
-                    SliverList(
-                        delegate: SliverChildBuilderDelegate((context, index) {
-                      return Padding(
-                        padding: const EdgeInsets.all(12.0),
-                        child: InkWell(
-                          onDoubleTap: () =>
-                              showFormModal(model: listGlicose[index]),
-                          onLongPress: () => showFormModalDelete(index),
-                          child: CardGlicose(
-                            hora: listGlicose[index].hora,
-                            concentracaoSugarSangue: listGlicose[index]
-                                .sugarConcentration
-                                .toString(),
-                          ),
-                        ),
-                      );
-                    }, childCount: listGlicose.length))
-                  ]),
+          leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          foregroundColor: principalColor,
+          backgroundColor: white,
+        ),
+        body:
+            // (listGlicose.isEmpty)
+            //     ? const Center(
+            //         child: Text(
+            //           "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //       )
+            //     :
+            RefreshIndicator(
+          onRefresh: () {
+            return refresh();
+          },
+          child: CustomScrollView(slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: Container(
+                margin: EdgeInsets.only(top: 20),
+                child: LineChartWidget(glicoseNoSangue: listGlicose),
+              ),
+            ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
+              return Padding(
+                padding: const EdgeInsets.all(12.0),
+                child: InkWell(
+                  onDoubleTap: () => showFormModal(model: listGlicose[index]),
+                  onLongPress: () => showDialog(
+                      context: context,
+                      builder: (context) => showDialogModal(index)),
+                  child: CardGlicose(
+                      hora: listGlicose[index].hora,
+                      concentracaoSugarSangue:
+                          listGlicose[index].sugarConcentration.toString(),
+                      data: listGlicose[index].data.toString()),
                 ),
-          bottomNavigationBar: BottomNavigationBar(
-            fixedColor: secondaryColorblue,
-            showSelectedLabels: null,
-            showUnselectedLabels: null,
-            iconSize: 40,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
+              );
+            }, childCount: listGlicose.length))
+          ]),
+        ),
+        bottomNavigationBar: BottomNavigationBar(
+          fixedColor: secondaryColorblue,
+          showSelectedLabels: null,
+          showUnselectedLabels: null,
+          iconSize: 40,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.bar_chart_sharp,
+                color: secondaryColorblue,
+              ),
+              label: 'Análise',
+            ),
+            BottomNavigationBarItem(
                 icon: Icon(
-                  Icons.bar_chart_sharp,
+                  Icons.home,
                   color: secondaryColorblue,
                 ),
-                label: 'Análise',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: secondaryColorblue,
-                  ),
-                  label: ''),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.notifications,
-                    color: secondaryColorblue,
-                  ),
-                  label: ''),
-            ],
-            currentIndex: _currentPage,
-            onTap: (pagina) {
-              pc.animateToPage(pagina,
-                  duration: Duration(milliseconds: 400), curve: Curves.ease);
-            },
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.notifications,
+                  color: secondaryColorblue,
+                ),
+                label: 'Emergência'),
+          ],
+          currentIndex: _currentPage,
+          onTap: (pagina) {
+            pc.animateToPage(pagina,
+                duration: Duration(milliseconds: 400), curve: Curves.ease);
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: principalColor,
+          shape: CircleBorder(),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
           ),
-          floatingActionButton: FloatingActionButton(
-            backgroundColor: principalColor,
-            shape: CircleBorder(),
-            child: Icon(
-              Icons.add,
-              color: Colors.white,
-            ),
-            onPressed: () {
-              showFormModal();
-            },
-          ),
+          onPressed: () {
+            showFormModal();
+          },
         ),
       );
 
@@ -191,7 +185,7 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     // Caso esteja editando
     if (model != null) {
       labelTitle = "Editando Glicose";
-      glicoseController.text = model.sugarConcentration.toString();
+      glicoseController.text = model.sugarConcentration.toInt().toString();
     }
     // Função do Flutter que mostra o modal na tela
     showModalBottomSheet(
@@ -217,15 +211,33 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                 TextFormField(
                   keyboardType: TextInputType.number,
                   controller: glicoseController,
-                  decoration: const InputDecoration(
-                      label: Text("Quantidade de Glicose Medida")),
+                  decoration: InputDecoration(
+                    label: Text("Quantidade de Glicose Medida"),
+                    hintText: 'Em mg/dl',
+                    hintStyle: styleTextFieldHint,
+                  ),
                 ),
                 const SizedBox(
                   height: 16,
                 ),
-                Column(
-                  crossAxisAlignment: CrossAxisAlignment.center,
+                Row(
+                  mainAxisAlignment: MainAxisAlignment.end,
                   children: [
+                    TextButton(
+                      onPressed: () {
+                        Navigator.pop(context);
+                      },
+                      style: buttonEmptyDialog,
+                      child: Text(labelSkipButton,
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.5)),
+                    ),
+                    SizedBox(
+                      width: 16,
+                    ),
                     ElevatedButton(
                         onPressed: () {
                           // Criar um objeto Glicose com as infos
@@ -236,13 +248,25 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                                   double.parse(glicoseController.text),
                               day: DateTime.now().day.toDouble(),
                               hora: hora =
-                                  DateFormat('KK:mm').format(DateTime.now()));
+                                  DateFormat('hh:mm a').format(DateTime.now()),
+                              data: DateFormat('dd/MM/yy')
+                                  .format(DateTime.now()));
 
                           // Usar id do model
                           if (model != null) {
                             glicose.id = model.id;
+                            showSnackBar(
+                                context: context,
+                                mensagem:
+                                    "Nível Glicêmico alterado com sucesso!",
+                                isErro: false);
+                          } else {
+                            showSnackBar(
+                                context: context,
+                                mensagem:
+                                    "Nível Glicêmico registrado com sucesso!",
+                                isErro: false);
                           }
-                          showSnackBar(context: context, mensagem: "Nivel Glicêmico registrado com sucesso!");
                           // Salvar no Firestore
                           firestore
                               .collection("glicose")
@@ -250,29 +274,17 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                               .set(glicose.toMap());
                           // Atualizar a lista
                           refresh();
-                          if (model != null) {
-                            CadastroGlicoseInherited.of(context)
-                                .newCadastroGlicose(hora, glicoseController.text);
-                          } else {
-                            CadastroGlicoseInherited.of(context)
-                                .newCadastroGlicose(
-                                    glicose.hora, glicoseController.text);
-                          }
-                          showSnackBar(context: context, mensagem: "Nível Glicêmico registrado com sucesso!");
+                          print('Chegamos aqui 2');
                           // Fechar o Modal
                           Navigator.pop(context);
-                          showSnackBar(context: context, mensagem: "Nível Glicêmico registrado com sucesso!");
                         },
-                        child: Text(labelConfirmationButton)),
-                    const SizedBox(
-                      height: 16,
-                    ),
-                    TextButton(
-                      onPressed: () {
-                        Navigator.pop(context);
-                      },
-                      child: Text(labelSkipButton),
-                    )
+                        style: buttonFilledDialog,
+                        child: Text(labelConfirmationButton,
+                            style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 20,
+                                fontWeight: FontWeight.bold,
+                                letterSpacing: 1.5)))
                   ],
                 )
               ],
@@ -296,11 +308,71 @@ class _TelaGlicoseState extends State<TelaGlicose> {
     setState(() {
       listGlicose = temp;
     });
+    sort();
   }
 
   void remove(Glicose model) {
     firestore.collection('glicose').doc(model.id).delete();
     refresh();
+  }
+
+  showDialogModal(int index) {
+    return AlertDialog(
+      backgroundColor: white,
+      title: Text(
+        "Você realmente deseja excluir?",
+      ),
+      titleTextStyle: TextStyle(
+          fontWeight: FontWeight.bold,
+          color: principalColor,
+          fontSize: 20,
+          fontFamily: 'Poppins'),
+      shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.all(Radius.circular(20))),
+      actionsOverflowButtonSpacing: 20,
+      actions: [
+        ElevatedButton(
+          style: buttonEmptyDialog,
+          onPressed: () {
+            Navigator.pop(context);
+          },
+          child: Text(
+            "Não",
+            style: TextStyle(
+                fontFamily: "Poppins",
+                fontSize: 20,
+                fontWeight: FontWeight.bold,
+                letterSpacing: 1.5),
+          ),
+        ),
+        ElevatedButton(
+            style: buttonFilledDialog,
+            onPressed: () {
+              remove(listGlicose[index]);
+
+              Navigator.pop(context);
+              showSnackBar(
+                  context: context,
+                  mensagem: "Registro Excluído com sucesso",
+                  isErro: false);
+            },
+            child: Text(
+              "Sim",
+              style: TextStyle(
+                  fontFamily: "Poppins",
+                  fontSize: 20,
+                  fontWeight: FontWeight.bold,
+                  letterSpacing: 1.5),
+            )),
+      ],
+      content: Text(
+        "Essa ação não poderá ser desfeita",
+        style: TextStyle(
+            fontWeight: FontWeight.bold,
+            color: Colors.black,
+            fontFamily: 'Poppins'),
+      ),
+    );
   }
 
   showFormModalDelete(int index) {
@@ -313,7 +385,7 @@ class _TelaGlicoseState extends State<TelaGlicose> {
         ),
         builder: (context) {
           return Container(
-            height: MediaQuery.of(context).size.height*0.4,
+            height: MediaQuery.of(context).size.height * 0.4,
             padding: const EdgeInsets.all(32.0),
             child: ListView(
               children: [
@@ -331,13 +403,19 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                           remove(listGlicose[index]);
 
                           Navigator.pop(context);
-                          showSnackBar(context: context, mensagem: "Registro Excluído com sucesso");
+                          showSnackBar(
+                              context: context,
+                              mensagem: "Registro Excluído com sucesso",
+                              isErro: false);
                         },
-                        child: Text("Sim", style: TextStyle(
-                            fontFamily: "Poppins",
-                            fontSize: 20,
-                            fontWeight: FontWeight.bold,
-                            letterSpacing: 1.5),)),
+                        child: Text(
+                          "Sim",
+                          style: TextStyle(
+                              fontFamily: "Poppins",
+                              fontSize: 20,
+                              fontWeight: FontWeight.bold,
+                              letterSpacing: 1.5),
+                        )),
                     const SizedBox(
                       height: 16,
                     ),
@@ -346,11 +424,14 @@ class _TelaGlicoseState extends State<TelaGlicose> {
                       onPressed: () {
                         Navigator.pop(context);
                       },
-                      child: Text("Não", style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 20,
-                          fontWeight: FontWeight.bold,
-                          letterSpacing: 1.5),),
+                      child: Text(
+                        "Não",
+                        style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 20,
+                            fontWeight: FontWeight.bold,
+                            letterSpacing: 1.5),
+                      ),
                     )
                   ],
                 )
@@ -359,4 +440,86 @@ class _TelaGlicoseState extends State<TelaGlicose> {
           );
         });
   }
+}
+
+class LineChartWidget extends StatefulWidget {
+  // List<Glicose> glicoseNoSangue;
+
+  LineChartWidget( {
+    Key? key,
+    required List<Glicose> glicoseNoSangue
+  }) : super(key: key);
+
+  @override
+  State<LineChartWidget> createState() => _LineChartWidgetState();
+}
+
+class _LineChartWidgetState extends State<LineChartWidget> {
+  List<_ChartData> chartData = <_ChartData>[];
+
+  @override
+  void initState() {
+    getDataFromFireStore().then((results) {
+      SchedulerBinding.instance.addPostFrameCallback((timeStamp) {
+        setState(() {});
+      });
+    });
+    super.initState();
+  }
+
+  Future<void> getDataFromFireStore() async {
+    var snapShotsValue =
+        await FirebaseFirestore.instance.collection("glicose").get();
+    List<_ChartData> list = snapShotsValue.docs
+        .map((e) => _ChartData(
+            x: e.data()['hora'],
+            // x: DateTime.fromMillisecondsSinceEpoch(
+            //     e.data()['data'].millisecondsSinceEpoch),
+            y: e.data()['sugar Concentration']))
+        .toList();
+    setState(() {
+      chartData = list;
+    });
+  }
+
+  @override
+  Widget build(BuildContext context) {
+    return _showChart();
+  }
+
+  Widget _showChart() {
+    return SafeArea(
+      child: AspectRatio(
+        aspectRatio: 13 / 9,
+        child: SfCartesianChart(
+            title: ChartTitle(
+                text: 'Nivel Glicêmico',
+                textStyle: TextStyle(
+                    fontFamily: 'Poppins',
+                    fontSize: 16,
+                    color: principalColor)),
+            legend: Legend(
+                isVisible: false,
+                alignment: ChartAlignment.center,
+                orientation: LegendItemOrientation.horizontal),
+            tooltipBehavior: TooltipBehavior(enable: true),
+            primaryXAxis: CategoryAxis(),
+            series: <LineSeries<_ChartData, String>>[
+              LineSeries<_ChartData, String>(
+                  name: 'Glicemia',
+                  color: red,
+                  dataSource: chartData,
+                  xValueMapper: (_ChartData data, _) => data.x,
+                  yValueMapper: (_ChartData data, _) => data.y)
+            ]),
+      ),
+    );
+  }
+}
+
+class _ChartData {
+  _ChartData({this.x, this.y});
+
+  final String? x;
+  final double? y;
 }

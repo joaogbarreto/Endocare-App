@@ -1,10 +1,12 @@
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/screens/tela-analise-ia.dart';
+import 'package:primeiroprojeto/screens/tela-emergencia.dart';
 import 'package:primeiroprojeto/screens/tela-home-usuario.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 
 class TelaHomePages extends StatefulWidget {
-  const TelaHomePages({Key? key}) : super(key: key);
+  const TelaHomePages({Key? key, User? user}) : super(key: key);
 
   @override
   State<TelaHomePages> createState() => _TelaHomePagesState();

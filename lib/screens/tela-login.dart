@@ -226,7 +226,8 @@ class _TelaLoginState extends State<TelaLogin> {
                                           borderSide: BorderSide(
                                               color: principalColor, width: 2.5),
                                           borderRadius:
-                                              BorderRadius.circular(50))),
+                                              BorderRadius.circular(50))
+                                  ),
                                 ),
                               ),
                             ],

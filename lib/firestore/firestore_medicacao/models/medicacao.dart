@@ -10,7 +10,7 @@ class Medicacao {
 
   Medicacao({this.id, required this.day, required this.hora, required this.nome, required this.notas});
 
-  Medicacao.fromMap(Map<String, dynamic> map)
+  Medicacao .fromMap(Map<String, dynamic> map)
       : id = map["id"],
         day = map["day"],
         hora = map["hora"],

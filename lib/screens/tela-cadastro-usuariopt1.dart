@@ -194,16 +194,6 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: TextFormField(
-                                  validator: (String? value) {
-                                    return null;
-
-                                    // if (value != null && value.isEmpty) {
-                                    //   return 'Insira seu Email';
-                                    // } else if (value == 'adm' || value == 'ADM') {
-                                    //   return null;
-                                    // }
-                                    // return 'Insira um Email valido';
-                                  },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.number,
                                   controller: dateNascController,
@@ -249,7 +239,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                     ElevatedButton(
                       style: buttonFilledPrimary,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/TelaCadastroUsuarioPT2');
+                        botaoEnviarClicado();
                       },
                       child: const Text(
                         "CONTINUAR",
@@ -292,7 +282,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
 botaoEnviarClicado() {
   String primeiroNome = firstNameController.text;
   String secondNome = secondNameController.text;
-
+  // String nascimentoData = Controller
   if (_formKey.currentState!.validate()) {
     Navigator.pushNamed(context, '/TelaCadastroUsuarioPT2');
   }
