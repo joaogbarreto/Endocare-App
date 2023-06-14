@@ -37,6 +37,7 @@ class _TelaLoginState extends State<TelaLogin> {
           ),
         ),
         body: SingleChildScrollView(
+          reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

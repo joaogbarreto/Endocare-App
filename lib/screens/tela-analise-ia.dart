@@ -79,156 +79,148 @@ class _TelaAnaliseIAState extends State<TelaAnaliseIA> {
                 )
               ],
             )),
-        Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: backCards,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: const [
-                BoxShadow(
-                color: Color(0xFFe8e8e8),
-              blurRadius: 5.0,
-              offset: Offset(0, 5)),
-            ]),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  // child: SvgPicture.asset(
-                  //   'assets/virtual_ai1.svg',
-                  //   fit: BoxFit.fill,
-                  // ),
-                  child: Image.asset('assets/virtual_ai1.png'),
-                ), // imagem
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 30.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      'Olá, parece que a sua glicose está alta hoje',
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 22,
-                          color: black,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: backCards,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: const [
-                BoxShadow(
-                color: Color(0xFFe8e8e8),
-              blurRadius: 5.0,
-              offset: Offset(0, 5)),
-      ]
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  // child: SvgPicture.asset(
-                  //   'assets/virtual_ai1.svg',
-                  //   fit: BoxFit.fill,
-                  // ),
-                  child: Image.asset('assets/virtual_ai1.png'),
-                ), // imagem
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 30.0),
-                  child: Container(
-                    width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      'Olá, parece que você ainda não cadastrou a sua glicose hoje',
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 22,
-                          color: black,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
-                    ),
-                  ),
-                ),
-              ],
-            ),
-          ),
-        ),
-        Padding(
-          padding: const EdgeInsets.all(32.0),
-          child: Container(
-            width: double.infinity,
-            decoration: BoxDecoration(
-                color: backCards,
-                borderRadius: BorderRadius.circular(25),
-                boxShadow: const [
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: backCards,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
                   BoxShadow(
-                    color: Color(0xFFe8e8e8),
-                    blurRadius: 5.0,
-                    offset: Offset(0, 5)),
-                ]
-            ),
-            child: Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: [
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.4,
-                  height: MediaQuery.of(context).size.height * 0.20,
-                  // child: SvgPicture.asset(
-                  //   'assets/virtual_ai1.svg',
-                  //   fit: BoxFit.fill,
-                  // ),
-                  child: Image.asset('assets/virtual_ai1.png'),
-                ), // image
-                Padding(
-                  padding: const EdgeInsets.symmetric(
-                      horizontal: 16.0, vertical: 30.0),
-                  child: Container(
+                  color: Color(0xFFe8e8e8),
+                blurRadius: 5.0,
+                offset: Offset(0, 5)),
+              ]),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
                     width: MediaQuery.of(context).size.width * 0.4,
-                    child: Text(
-                      'Olá, você sabia que para ter uma boa qualidade de vida é bom...',
-                      style: TextStyle(
-                          fontFamily: "Poppins",
-                          fontSize: 22,
-                          color: black,
-                          fontWeight: FontWeight.bold),
-                      textAlign: TextAlign.center,
+                    height: MediaQuery.of(context).size.height * 0.20,
+                    // child: SvgPicture.asset(
+                    //   'assets/virtual_ai1.svg',
+                    //   fit: BoxFit.fill,
+                    // ),
+                    child: Image.asset('assets/virtual_ai1.png'),
+                  ), // imagem
+                  Padding(
+                    padding: const EdgeInsets.symmetric( vertical: 30.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        'Olá, parece que a sua glicose está alta hoje',
+                        style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 22,
+                            color: black,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
                     ),
                   ),
-                ),
-              ],
+                ],
+              ),
             ),
           ),
         ),
-        const SizedBox(
-          height: 50,
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: backCards,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                  BoxShadow(
+                  color: Color(0xFFe8e8e8),
+                blurRadius: 5.0,
+                offset: Offset(0, 5)),
+      ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.20,
+                    // child: SvgPicture.asset(
+                    //   'assets/virtual_ai1.svg',
+                    //   fit: BoxFit.fill,
+                    // ),
+                    child: Image.asset('assets/virtual_ai1.png'),
+                  ), // imagem
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 30.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        'Olá, parece que você ainda não cadastrou a sua glicose hoje',
+                        style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 22,
+                            color: black,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
         ),
-        Expanded(
-            child: ClipRRect(
-                borderRadius: const BorderRadius.only(
-                    topRight: Radius.circular(10),
-                    topLeft: Radius.circular(10)),
-                child: Container(
-                  color: white,
-                )
-            )
-        )
+        Flexible(
+          child: Padding(
+            padding: const EdgeInsets.all(32.0),
+            child: Container(
+              width: double.infinity,
+              decoration: BoxDecoration(
+                  color: backCards,
+                  borderRadius: BorderRadius.circular(25),
+                  boxShadow: const [
+                    BoxShadow(
+                      color: Color(0xFFe8e8e8),
+                      blurRadius: 5.0,
+                      offset: Offset(0, 5)),
+                  ]
+              ),
+              child: Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children: [
+                  Container(
+                    width: MediaQuery.of(context).size.width * 0.4,
+                    height: MediaQuery.of(context).size.height * 0.20,
+                    // child: SvgPicture.asset(
+                    //   'assets/virtual_ai1.svg',
+                    //   fit: BoxFit.fill,
+                    // ),
+                    child: Image.asset('assets/virtual_ai1.png'),
+                  ), // image
+                  Padding(
+                    padding: const EdgeInsets.symmetric(
+                        horizontal: 16.0, vertical: 30.0),
+                    child: Container(
+                      width: MediaQuery.of(context).size.width * 0.4,
+                      child: Text(
+                        'Olá, você sabia que para ter uma boa qualidade de vida é bom...',
+                        style: TextStyle(
+                            fontFamily: "Poppins",
+                            fontSize: 22,
+                            color: black,
+                            fontWeight: FontWeight.bold),
+                        textAlign: TextAlign.center,
+                      ),
+                    ),
+                  ),
+                ],
+              ),
+            ),
+          ),
+        ),
       ]),
     ),
   );

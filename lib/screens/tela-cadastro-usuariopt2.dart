@@ -1,3 +1,4 @@
+import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:primeiroprojeto/authentication/services/auth_service.dart';
@@ -13,6 +14,9 @@ class TelaCadastroUsuarioPT2 extends StatefulWidget {
 }
 
 class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
+  final dropValue = ValueNotifier('');
+  final dropOpcoes = ["Masculino", "Feminino"];
+
   TextEditingController generoController = TextEditingController();
   TextEditingController pesoController = TextEditingController();
   TextEditingController alturaController = TextEditingController();
@@ -35,6 +39,7 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
           ),
         ),
         body: SingleChildScrollView(
+          reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -57,65 +62,65 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                       children: <Widget>[
                         Container(
                           child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
-                              Container(
-                                child: Text(
-                                  'Gênero',
-                                  style: TextStyle(
-                                      color: principalGray,
-                                      fontFamily: "Poppins",
-                                      fontSize: 20,
-                                      letterSpacing: 1.5,
-                                      fontWeight: FontWeight.bold),
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+                                Container(
+                                  child: Text(
+                                    'Gênero',
+                                    style: TextStyle(
+                                        color: principalGray,
+                                        fontFamily: "Poppins",
+                                        fontSize: 20,
+                                        letterSpacing: 1.5,
+                                        fontWeight: FontWeight.bold),
+                                  ),
                                 ),
-                              ),
-                              Container(
-                                width: MediaQuery.of(context).size.width * 0.8,
-                                child: TextFormField(
-                                  validator: (String? value) {
-                                    if (value == null || value == "") {
-                                      return "O valor do gênero deve ser preenchido";
-                                    }
-                                    if (value!.isEmpty ||
-                                        !RegExp(r'^[a-z A-Z]+$')
-                                            .hasMatch(value!) ||
-                                        value! == "Masculino" ||
-                                        value! == "Feminino") {
-                                      return "Entre com um gênero válido";
-                                    }
-                                    return null;
-                                  },
-                                  style: styleTextFieldPrincipalColor,
-                                  keyboardType: TextInputType.name,
-                                  controller: generoController,
-                                  decoration: InputDecoration(
-                                      enabledBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
-                                          borderRadius:
-                                              BorderRadius.circular(50)),
-                                      errorBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: red, width: 2.5),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      focusedErrorBorder: OutlineInputBorder(
-                                        borderSide:
-                                            BorderSide(color: red, width: 2.5),
-                                        borderRadius: BorderRadius.circular(50),
-                                      ),
-                                      hintText: 'Digite o seu gênero',
-                                      hintStyle: styleTextFieldHint,
-                                      focusedBorder: OutlineInputBorder(
-                                          borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
-                                          borderRadius:
-                                              BorderRadius.circular(50))),
-                                ),
-                              ),
-                            ],
-                          ),
+                                Container(
+                                  width: MediaQuery.of(context).size.width*0.8,
+                                  child: ValueListenableBuilder(
+                                      valueListenable: dropValue,
+                                      builder: (BuildContext context,
+                                          String value, _) {
+                                        return DropdownButtonFormField<String>(
+                                          style: TextStyle(color: principalColor),
+                                          dropdownColor: Color(0xFFE8E8E8),
+                                          isExpanded: true,
+                                          hint: Text('Informe seu gênero', style: TextStyle(color: principalColor),),
+                                          value: (value.isEmpty) ? null : value,
+                                          onChanged: (escolha) => dropValue
+                                              .value = escolha.toString(),
+                                          items: dropOpcoes
+                                              .map((op) => DropdownMenuItem(
+                                                  value: op, child: Text(op)))
+                                              .toList(),
+                                          decoration: InputDecoration(
+                                              enabledBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: principalColor,
+                                                      width: 2.5),
+                                                  borderRadius:
+                                                  BorderRadius.circular(50)),
+                                              errorBorder: OutlineInputBorder(
+                                                borderSide:
+                                                BorderSide(color: red, width: 2.5),
+                                                borderRadius: BorderRadius.circular(50),
+                                              ),
+                                              focusedErrorBorder: OutlineInputBorder(
+                                                borderSide:
+                                                BorderSide(color: red, width: 2.5),
+                                                borderRadius: BorderRadius.circular(50),
+                                              ),
+                                              hintStyle: styleTextFieldHint,
+                                              focusedBorder: OutlineInputBorder(
+                                                  borderSide: BorderSide(
+                                                      color: principalColor,
+                                                      width: 2.5),
+                                                  borderRadius:
+                                                  BorderRadius.circular(50))),
+                                        );
+                                      }),
+                                )
+                              ]),
                         ),
                         Container(
                           child: Column(
@@ -137,14 +142,15 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                                 child: TextFormField(
                                   validator: (String? value) {
                                     if (value == null || value == "") {
-                                      return "O valor do segundo nome deve ser preenchido";
+                                      return "O valor do peso deve ser preenchido";
                                     }
                                     if (value!.isEmpty ||
                                         !RegExp(r'^[a-z A-Z]+$')
                                             .hasMatch(value!) ||
                                         value.length < 2) {
-                                      return "Entre com um segundo nome válido";
+                                      return "Entre com um peso válido";
                                     }
+                                    return null;
                                   },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.number,
@@ -152,7 +158,8 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
+                                              color: principalColor,
+                                              width: 2.5),
                                           borderRadius:
                                               BorderRadius.circular(50)),
                                       errorBorder: OutlineInputBorder(
@@ -169,7 +176,8 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                                       hintStyle: styleTextFieldHint,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
+                                              color: principalColor,
+                                              width: 2.5),
                                           borderRadius:
                                               BorderRadius.circular(50))),
                                 ),
@@ -211,7 +219,8 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                                   decoration: InputDecoration(
                                       enabledBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
+                                              color: principalColor,
+                                              width: 2.5),
                                           borderRadius:
                                               BorderRadius.circular(50)),
                                       errorBorder: OutlineInputBorder(
@@ -228,7 +237,8 @@ class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
                                       hintStyle: styleTextFieldHint,
                                       focusedBorder: OutlineInputBorder(
                                           borderSide: BorderSide(
-                                              color: principalColor, width: 2.5),
+                                              color: principalColor,
+                                              width: 2.5),
                                           borderRadius:
                                               BorderRadius.circular(50))),
                                 ),

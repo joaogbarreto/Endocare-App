@@ -40,7 +40,7 @@ class _TelaHomePagesState extends State<TelaHomePages> {
           children: [
             TelaAnaliseIA(),
             TelaHomeUsuario(),
-            // TelaEmergencia(),
+            TelaEmergencia(),
           ],
           onPageChanged: setPaginaAtual,
         ),

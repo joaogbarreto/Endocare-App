@@ -68,132 +68,134 @@ class _TelaInsulinaState extends State<TelaInsulina> {
 
   @override
   Widget build(BuildContext context) => Scaffold(
-    backgroundColor: white,
-    appBar: AppBar(
-      title: Text(
-        "Insulina",
-        style: TextStyle(
-          color: principalColor,
-          fontFamily: "Poppins",
-          fontSize: 26,
-          fontWeight: FontWeight.bold,
-        ),
-      ),
-      leading: BackButton(
-        onPressed: () {
-          Navigator.pop(context);
-        },
-      ),
-      foregroundColor: principalColor,
-      backgroundColor: white,
-    ),
-    body:
-    // (listGlicose.isEmpty)
-    //     ? const Center(
-    //         child: Text(
-    //           "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
-    //           textAlign: TextAlign.center,
-    //           style: TextStyle(fontSize: 18),
-    //         ),
-    //       )
-    //     :
-    RefreshIndicator(
-      onRefresh: () {
-        return refresh();
-      },
-      child: CustomScrollView(slivers: <Widget>[
-        SliverToBoxAdapter(
-          child: Container(
-            margin: EdgeInsets.only(top: 20),
-            child: SvgPicture.asset('assets/images/Medidor.svg', height: 200,),
+        backgroundColor: white,
+        appBar: AppBar(
+          title: Text(
+            "Insulina",
+            style: TextStyle(
+              color: principalColor,
+              fontFamily: "Poppins",
+              fontSize: 26,
+              fontWeight: FontWeight.bold,
+            ),
           ),
+          leading: BackButton(
+            onPressed: () {
+              Navigator.pop(context);
+            },
+          ),
+          foregroundColor: principalColor,
+          backgroundColor: white,
         ),
-        // SliverToBoxAdapter(
-        //   child: Padding(
-        //     padding: const EdgeInsets.symmetric(
-        //         horizontal: 24.0, vertical: 12),
-        //     child: Container(
-        //       child: Row(
-        //         children: [
-        //           Container(
-        //             margin: EdgeInsets.symmetric(horizontal: 5),
-        //             height: 10,
-        //             width: 10,
-        //             decoration: BoxDecoration(
-        //                 color: Colors.red,
-        //                 borderRadius: BorderRadius.circular(50)),
-        //           ),
-        //           Text('Açucar no Sangue'),
-        //         ],
-        //       ),
-        //     ),
-        //   ),
-        // ),
-        SliverList(
-            delegate: SliverChildBuilderDelegate((context, index) {
+        body:
+            // (listGlicose.isEmpty)
+            //     ? const Center(
+            //         child: Text(
+            //           "Nenhum cadastro de glicose feito ainda.\nVamos realizar o primeiro?",
+            //           textAlign: TextAlign.center,
+            //           style: TextStyle(fontSize: 18),
+            //         ),
+            //       )
+            //     :
+            RefreshIndicator(
+          onRefresh: () {
+            return refresh();
+          },
+          child: CustomScrollView(slivers: <Widget>[
+            SliverToBoxAdapter(
+              child: Container(
+                margin: EdgeInsets.only(top: 20),
+                child: SvgPicture.asset(
+                  'assets/images/Medidor.svg',
+                  height: 200,
+                ),
+              ),
+            ),
+            // SliverToBoxAdapter(
+            //   child: Padding(
+            //     padding: const EdgeInsets.symmetric(
+            //         horizontal: 24.0, vertical: 12),
+            //     child: Container(
+            //       child: Row(
+            //         children: [
+            //           Container(
+            //             margin: EdgeInsets.symmetric(horizontal: 5),
+            //             height: 10,
+            //             width: 10,
+            //             decoration: BoxDecoration(
+            //                 color: Colors.red,
+            //                 borderRadius: BorderRadius.circular(50)),
+            //           ),
+            //           Text('Açucar no Sangue'),
+            //         ],
+            //       ),
+            //     ),
+            //   ),
+            // ),
+            SliverList(
+                delegate: SliverChildBuilderDelegate((context, index) {
               return Padding(
                 padding: const EdgeInsets.all(12.0),
                 child: InkWell(
-                  onDoubleTap: () =>
-                      showFormModal(model: listInsulina[index]),
+                  onDoubleTap: () => showFormModal(model: listInsulina[index]),
                   onLongPress: () => showDialog(
                       context: context,
                       builder: (context) => showDialogModal(index)),
                   child: CardInsulina(
-                      hora: listInsulina[index].hora,
-                      concentracaoInsulina: listInsulina[index]
-                          .dosagemInsulina.toInt()
-                          .toString(),
-                      observacoes: listInsulina[index].notas,),
+                    hora: listInsulina[index].hora,
+                    concentracaoInsulina:
+                        listInsulina[index].dosagemInsulina.toInt().toString(),
+                    observacoes: listInsulina[index].notas,
+                  ),
                 ),
               );
             }, childCount: listInsulina.length))
-      ]),
-    ),
-    bottomNavigationBar: BottomNavigationBar(
-      fixedColor: secondaryColorblue,
-      showSelectedLabels: null,
-      showUnselectedLabels: null,
-      iconSize: 40,
-      items: <BottomNavigationBarItem>[
-        BottomNavigationBarItem(
-          icon: Icon(
-            Icons.bar_chart_sharp,
-            color: secondaryColorblue,
-          ),
-          label: 'Análise',
+          ]),
         ),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.home,
-              color: secondaryColorblue,
+        bottomNavigationBar: BottomNavigationBar(
+          fixedColor: secondaryColorblue,
+          showSelectedLabels: null,
+          showUnselectedLabels: null,
+          iconSize: 40,
+          items: <BottomNavigationBarItem>[
+            BottomNavigationBarItem(
+              icon: Icon(
+                Icons.bar_chart_sharp,
+                color: secondaryColorblue,
+              ),
+              label: 'Análise',
             ),
-            label: 'Home'),
-        BottomNavigationBarItem(
-            icon: Icon(
-              Icons.notifications,
-              color: secondaryColorblue,
-            ),
-            label: 'Emergência'),
-      ],
-      currentIndex: _currentPage,
-      onTap: (pagina) {
-        pc.animateToPage(pagina,
-            duration: Duration(milliseconds: 400), curve: Curves.ease);
-      },
-    ),
-    floatingActionButton: FloatingActionButton(
-      backgroundColor: principalColor,
-      shape: CircleBorder(),
-      child: Icon(
-        Icons.add,
-        color: Colors.white,
-      ),
-      onPressed: () {
-        showFormModal();
-      },
-    ),
-  );
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.home,
+                  color: secondaryColorblue,
+                ),
+                label: 'Home'),
+            BottomNavigationBarItem(
+                icon: Icon(
+                  Icons.notifications,
+                  color: secondaryColorblue,
+                ),
+                label: 'Emergência'),
+          ],
+          currentIndex: _currentPage,
+          onTap: (pagina) {
+            pc.animateToPage(pagina,
+                duration: Duration(milliseconds: 400), curve: Curves.ease);
+          },
+        ),
+        floatingActionButton: FloatingActionButton(
+          backgroundColor: principalColor,
+          shape: CircleBorder(),
+          child: Icon(
+            Icons.add,
+            color: Colors.white,
+          ),
+          onPressed: () {
+            showFormModal();
+          },
+        ),
+      );
 
   showFormModal({Insulina? model}) {
     // Labels à serem mostradas no Modal
@@ -204,7 +206,7 @@ class _TelaInsulinaState extends State<TelaInsulina> {
     // Controlador do campo que receberá o nome do Objeto
     TextEditingController nameController = TextEditingController();
     TextEditingController sugarConcentrationController =
-    TextEditingController();
+        TextEditingController();
     TextEditingController insulinaController = TextEditingController();
     TextEditingController notasController = TextEditingController();
     // Caso esteja editando
@@ -275,13 +277,13 @@ class _TelaInsulinaState extends State<TelaInsulina> {
                           Insulina insulina = Insulina(
                               id: const Uuid().v1(),
                               dosagemInsulina:
-                              double.parse(insulinaController.text),
+                                  double.parse(insulinaController.text),
                               day: DateTime.now().day.toDouble(),
                               hora: hora =
                                   DateFormat('hh:mm a').format(DateTime.now()),
                               notas: notasController.text);
-                              // data: DateFormat('dd/MM/yy')
-                              //     .format(DateTime.now()));
+                          // data: DateFormat('dd/MM/yy')
+                          //     .format(DateTime.now()));
 
                           // Usar id do model
                           if (model != null) {
@@ -289,12 +291,13 @@ class _TelaInsulinaState extends State<TelaInsulina> {
                             showSnackBar(
                                 context: context,
                                 mensagem:
-                                "Registro de Insulina alterado com sucesso!");
+                                    "Registro de Insulina alterado com sucesso!",
+                                isErro: false);
                           } else {
                             showSnackBar(
                                 context: context,
-                                mensagem:
-                                "Insulina registrada com sucesso!");
+                                mensagem: "Insulina registrada com sucesso!",
+                                isErro: false);
                           }
                           // Salvar no Firestore
                           firestore
@@ -328,7 +331,7 @@ class _TelaInsulinaState extends State<TelaInsulina> {
     List<Insulina> temp = [];
 
     QuerySnapshot<Map<String, dynamic>> snapshot =
-    await firestore.collection("insulina").get();
+        await firestore.collection("insulina").get();
 
     for (var doc in snapshot.docs) {
       temp.add(Insulina.fromMap(doc.data()));

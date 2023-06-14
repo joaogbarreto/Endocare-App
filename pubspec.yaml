@@ -48,6 +48,26 @@ dependencies:
   datetime_picker_formfield: ^2.0.1
   flutter_native_splash: ^2.3.1
   flutter_launcher_icons: ^0.13.1
+  provider: ^6.0.5
+  image_picker: ^0.8.8
+
+flutter_native_splash:
+  color: "#2764AD"
+  image: "assets/app/logo_endocare_splash.png"
+  android: true
+  ios: true
+
+  android_12:
+    image: "assets/app/logo_endocare_splash.png"
+    color: "#2764AD"
+
+flutter_icons:
+  image_path: "assets/app/logo_endocare.png"
+  ios: true
+  remove_alpha_ios: true
+  android: "launcher_icon" 
+  adaptive_icon_background: "#FFFFFF"
+  adaptive_icon_foreground: "assets/app/logo_endocare.png"
 
 dev_dependencies:
   flutter_test:

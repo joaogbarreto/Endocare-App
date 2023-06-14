@@ -1,9 +1,11 @@
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:primeiroprojeto/authentication/services/auth_service.dart';
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
+import 'package:primeiroprojeto/widgets/data-nasc.dart';
 
 class TelaCadastroUsuarioPT1 extends StatefulWidget {
   const TelaCadastroUsuarioPT1({Key? key}) : super(key: key);
@@ -35,6 +37,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
           ),
         ),
         body: SingleChildScrollView(
+          reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,
@@ -49,7 +52,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                 child: Padding(
                   padding: const EdgeInsets.all(32.0),
                   child: Container(
-                    height: MediaQuery.of(context).size.height * 0.3,
+                    height: MediaQuery.of(context).size.height * 0.35,
                     width: MediaQuery.of(context).size.width,
                     child: Column(
                       mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -144,6 +147,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                                         value.length < 2) {
                                       return "Entre com um segundo nome válido";
                                     }
+                                    return null;
                                   },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.name,
@@ -194,6 +198,16 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                               Container(
                                 width: MediaQuery.of(context).size.width * 0.8,
                                 child: TextFormField(
+                                  validator: (String? value) {
+                                    if (value == null || value == "") {
+                                      return "O valor da Data de Nascimento deve ser preenchido";
+                                    }
+                                    if (value!.isEmpty ||
+                                        value.length < 8) {
+                                      return "Entre com valor válido";
+                                    }
+                                    return null;
+                                  },
                                   style: styleTextFieldPrincipalColor,
                                   keyboardType: TextInputType.number,
                                   controller: dateNascController,
@@ -220,6 +234,10 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                                               color: principalColor, width: 2.5),
                                           borderRadius:
                                               BorderRadius.circular(50))),
+                                  inputFormatters: [
+                                      DataNascimentoFormatter(),
+                                     LengthLimitingTextInputFormatter(8),
+                                  ],
                                 ),
                               ),
                             ],

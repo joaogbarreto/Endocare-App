@@ -37,6 +37,7 @@ class _TelaCadastroUsuarioPT3State extends State<TelaCadastroUsuarioPT3> {
           ),
         ),
         body: SingleChildScrollView(
+          reverse: true,
           child: Column(
             mainAxisAlignment: MainAxisAlignment.spaceBetween,
             crossAxisAlignment: CrossAxisAlignment.center,

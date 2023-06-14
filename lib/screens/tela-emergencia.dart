@@ -40,6 +40,7 @@ class _TelaEmergenciaState extends State<TelaEmergencia> {
           SliverToBoxAdapter(
             child: Container(
                 child: Row(
+              crossAxisAlignment: CrossAxisAlignment.end,
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: <Widget>[
                 Padding(
@@ -72,11 +73,16 @@ class _TelaEmergenciaState extends State<TelaEmergencia> {
                     ],
                   )),
                 ),
-                Container(
-                  width: MediaQuery.of(context).size.width * 0.1,
-                  decoration: BoxDecoration(
-                    shape: BoxShape.circle,
-                    color: newprincipalColor,
+                GestureDetector(
+                  onTap: () =>
+                      Navigator.pushNamed(context, '/TelaPerfilUsuario'),
+                  child: Padding(
+                    padding: EdgeInsets.only(top: 10, right: 30),
+                    child: CircleAvatar(
+                      radius: 30,
+                      backgroundImage: NetworkImage(
+                          'https://cdn-icons-png.flaticon.com/512/6073/6073873.png'),
+                    ),
                   ),
                 )
               ],
@@ -119,173 +125,34 @@ class _TelaEmergenciaState extends State<TelaEmergencia> {
                   )),
             ),
           ),
-          HorizontalSliverList(
-            children: [
-              InkWell(
-              // onDoubleTap: () =>
-              //     showFormModal(model: listGlicose[index]),
-              // onLongPress: () => showDialog(
-              //     context: context,
-              //     builder: (context) => showDialogModal(index)),
-              child: CardContato(
-                nome: 'Mae',
-              ),
-            ),
-            ]
-          ),
           SliverToBoxAdapter(
             child: Row(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
               children: [
-                Container(
-                  child: Column(
-                    children: [
-                      Card(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        elevation: 5,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                // Navigator.pushNamed(context, '/TelaInsulina');
-                              },
-                              style: buttonFilledRedIcon,
-                              child: FaIcon(
-                                FontAwesomeIcons.syringe,
-                                size: 40,
-                                color: principalColor,
-                              )),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          'Insulina',
-                          style: TextStyle(
-                              color: principalGray,
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
+                InkWell(
+                  child: CardContato(
+                    nome: 'Mae',
                   ),
                 ),
-                Container(
-                  child: Column(
-                    children: [
-                      Card(
-                        shape: const RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        elevation: 5,
-                        child: Container(
-                            height: MediaQuery.of(context).size.height * 0.1,
-                            width: MediaQuery.of(context).size.width * 0.2,
-                            child: ElevatedButton(
-                                onPressed: () {
-                                  Navigator.pushNamed(context, '/TelaGlicose');
-                                },
-                                style: buttonFilledRedIcon,
-                                child: Icon(
-                                  Icons.water_drop_outlined,
-                                  size: 50,
-                                  color: principalColor,
-                                ))),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          'Glicose',
-                          style: TextStyle(
-                              color: principalGray,
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        elevation: 5,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: ElevatedButton(
-                            onPressed: () {
-                              Navigator.pushNamed(context, '/TelaAlimentacao');
-                            },
-                            style: buttonFilledRedIcon,
-                            child: FaIcon(
-                              FontAwesomeIcons.pizzaSlice,
-                              size: 40,
-                              color: principalColor,
-                            ),
-                          ),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          'Alimentação',
-                          style: TextStyle(
-                              color: principalGray,
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
-                Container(
-                  child: Column(
-                    children: [
-                      Card(
-                        shape: RoundedRectangleBorder(
-                            borderRadius:
-                                BorderRadius.all(Radius.circular(30))),
-                        elevation: 5,
-                        child: Container(
-                          height: MediaQuery.of(context).size.height * 0.1,
-                          width: MediaQuery.of(context).size.width * 0.2,
-                          child: ElevatedButton(
-                              onPressed: () {
-                                Navigator.pushNamed(context, '/TelaMedicacao');
-                              },
-                              style: buttonFilledRedIcon,
-                              child: Icon(
-                                Icons.local_hospital_outlined,
-                                size: 40,
-                                color: principalColor,
-                              )),
-                        ),
-                      ),
-                      Container(
-                        margin: const EdgeInsets.only(top: 5),
-                        child: Text(
-                          'Medicação',
-                          style: TextStyle(
-                              color: principalGray,
-                              fontSize: 20,
-                              fontFamily: 'Poppins',
-                              fontWeight: FontWeight.bold),
-                        ),
-                      ),
-                    ],
-                  ),
-                ),
+                InkWell(child: CardContato(nome: "Pai")),
+                InkWell(child: CardContato(nome: "Ambulância")),
+                InkWell(child: CardContato(nome: "Bombeiros")),
               ],
+            ),
+          ),
+          SliverToBoxAdapter(
+            child: Padding(
+              padding: const EdgeInsets.all(8.0),
+              child: Container(
+                  margin: EdgeInsets.only(left: 15),
+                  child: Text(
+                    'UBSs mais próximas',
+                    style: TextStyle(
+                      fontSize: 26,
+                      fontFamily: 'Poppins',
+                      fontWeight: FontWeight.bold,
+                    ),
+                  )),
             ),
           ),
         ]),
