@@ -139,39 +139,6 @@ class _TelaMedicacaoState extends State<TelaMedicacao> {
                     }, childCount: listMedicacao.length))
                   ]),
                 ),
-          bottomNavigationBar: BottomNavigationBar(
-            backgroundColor: white,
-            fixedColor: secondaryColorblue,
-            showSelectedLabels: null,
-            showUnselectedLabels: null,
-            iconSize: 40,
-            items: <BottomNavigationBarItem>[
-              BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.bar_chart_sharp,
-                  color: secondaryColorblue,
-                ),
-                label: 'Análise',
-              ),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.home,
-                    color: secondaryColorblue,
-                  ),
-                  label: 'Home'),
-              BottomNavigationBarItem(
-                  icon: Icon(
-                    Icons.notifications,
-                    color: secondaryColorblue,
-                  ),
-                  label: 'Emergência'),
-            ],
-            currentIndex: _currentPage,
-            onTap: (pagina) {
-              pc.animateToPage(pagina,
-                  duration: Duration(milliseconds: 400), curve: Curves.ease);
-            },
-          ),
           floatingActionButton: FloatingActionButton(
             backgroundColor: principalColor,
             shape: const CircleBorder(),

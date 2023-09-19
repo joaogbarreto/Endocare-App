@@ -1,6 +1,5 @@
-import 'dart:ffi';
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
+
 import '../styles/button.dart';
 import '../styles/color.dart';
 
@@ -69,7 +68,7 @@ class TelaInicio extends StatelessWidget {
                                 bottom: BorderSide(color: white, width: 1.0))),
                         margin: EdgeInsets.only(top: 30),
                         child: GestureDetector(
-                          onTap:() => Navigator.pushNamed(context, '/TelaCadastroUsuarioPT1'),
+                          onTap:() => Navigator.pushNamed(context, '/TelaEscolha'),
                           child: Text(
                             "Não tem uma conta? Cadastre-se",
                             style: TextStyle(

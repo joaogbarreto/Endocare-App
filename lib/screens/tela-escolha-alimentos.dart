@@ -3,17 +3,26 @@ import 'package:flutter/material.dart';
 import '../styles/button.dart';
 import '../styles/color.dart';
 
-class TelaEscolha extends StatefulWidget {
-  const TelaEscolha({Key? key}) : super(key: key);
+class TelaEscolhaAlimentos extends StatefulWidget {
+  const TelaEscolhaAlimentos({Key? key}) : super(key: key);
 
   @override
-  State<TelaEscolha> createState() => _TelaEscolhaState();
+  State<TelaEscolhaAlimentos> createState() => _TelaEscolhaAlimentosState();
 }
 
-class _TelaEscolhaState extends State<TelaEscolha> {
+class _TelaEscolhaAlimentosState extends State<TelaEscolhaAlimentos> {
   @override
   Widget build(BuildContext context) => Scaffold(
     backgroundColor: principalColor,
+    appBar: AppBar(
+      leading: BackButton(
+        onPressed: () {
+          Navigator.pop(context);
+        },
+      ),
+      foregroundColor: white,
+      backgroundColor: Colors.transparent,
+    ),
     body: Column(
       children: <Widget>[
         Expanded(
@@ -59,10 +68,10 @@ class _TelaEscolhaState extends State<TelaEscolha> {
                     child: ElevatedButton(
                       style: buttonFilledWhite,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/TelaCadastroUsuarioAdolescentePT1');
+                        Navigator.pushNamed(context, '/TelaCadastroAlimentos');
                       },
                       child: const Text(
-                        "Sou Adolescente",
+                        "Alimento",
                         style: TextStyle(
                             fontFamily: "Poppins",
                             fontSize: 20,
@@ -78,10 +87,10 @@ class _TelaEscolhaState extends State<TelaEscolha> {
                     child: ElevatedButton(
                       style: buttonFilledPrimary2,
                       onPressed: () {
-                        Navigator.pushNamed(context, '/TelaCadastroUsuarioNutricionistaPT1');
+                        Navigator.pushNamed(context, '/TelaCadastroReceitas');
                       },
                       child: const Text(
-                        "Sou Nutricionista",
+                        "Receita",
                         style: TextStyle(
                             fontFamily: "Poppins",
                             fontSize: 20,

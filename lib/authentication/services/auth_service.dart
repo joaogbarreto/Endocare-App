@@ -3,8 +3,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 class AuthService {
   final FirebaseAuth _firebaseAuth = FirebaseAuth.instance;
 
-  Future<String?> entrarUsuario(
-      {required String email, required String senha}) async {
+  Future<String?> entrarUsuario({required String email, required String senha}) async {
     try {
       await _firebaseAuth.signInWithEmailAndPassword(
           email: email, password: senha);
@@ -17,11 +16,9 @@ class AuthService {
       }
       return e.code;
     }
-
     return null;
   }
-  Future<String?> cadastrarUsuario({
-    required String email,
+  Future<String?> cadastrarUsuario({required String email,
     required String senha,
     String? nome,
   }) async {
@@ -31,7 +28,6 @@ class AuthService {
         email: email,
         password: senha,
       );
-
       await userCredential.user!.updateDisplayName(nome);
       //print("Funcionou! Chegamos até essa linha!");
     } on FirebaseAuthException catch (e) {
@@ -41,7 +37,6 @@ class AuthService {
       }
       return e.code;
     }
-
     return null;
   }
 

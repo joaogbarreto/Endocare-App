@@ -22,47 +22,43 @@ class CardAlimentacao extends StatefulWidget {
 
 class _CardAlimentacao extends State<CardAlimentacao> {
   @override
-  Widget build(BuildContext context) => Card(
-    shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(20)),
-    elevation: 5,
+  Widget build(BuildContext context) => Container(
     child: Column(
       children: [
         Container(
-          width: MediaQuery.of(context).size.width * 0.2,
-          height: MediaQuery.of(context).size.height * 0.09,
+          width: MediaQuery.of(context).size.width * 0.35,
+          height: MediaQuery.of(context).size.height * 0.22,
           decoration: BoxDecoration(
               borderRadius: BorderRadius.circular(20),
-              color: white,
-              boxShadow: const <BoxShadow>[
-                BoxShadow(
-                    color: Color(0xFFe8e8e8),
-                    blurRadius: 5.0,
-                    offset: Offset(0, 5)),
-              ]),
+              color: white,),
           child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceAround,
               crossAxisAlignment: CrossAxisAlignment.center,
               children: <Widget>[
                 Container(
-                  child: Image.asset('assets/images/frango'),
+                  child: Image.asset('assets/images/frango.png',fit: BoxFit.cover, width: 300,),
                 ),
-                Container(
-                  child: Row(
-                    children: [
-                      Container(
-                          child: Text(
-                            widget.nome,
-                            style: TextStyle(
-                              fontFamily: "Poppins",
-                              fontSize: 20,
-                              color: black,
-                              fontWeight: FontWeight.bold,
-                            ),
-                          )),
-                      Container(
-                        child: FaIcon(FontAwesomeIcons.heart)
-                      )
-                    ],
+                Padding(
+                  padding: const EdgeInsets.all(8.0),
+                  child: Container(
+                    child: Row(
+                      mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                      children: [
+                        Container(
+                            child: Text(
+                              widget.nome,
+                              style: TextStyle(
+                                fontFamily: "Poppins",
+                                fontSize: 22,
+                                color: black,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            )),
+                        Container(
+                          child: FaIcon(FontAwesomeIcons.heart)
+                        )
+                      ],
+                    ),
                   ),
                 )
               ]),

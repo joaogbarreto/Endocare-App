@@ -2,17 +2,17 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
 import 'package:primeiroprojeto/screens/tela-analise-ia.dart';
 import 'package:primeiroprojeto/screens/tela-emergencia.dart';
-import 'package:primeiroprojeto/screens/tela-home-usuario.dart';
+import 'package:primeiroprojeto/screens/tela-home-usuario-adole.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 
-class TelaHomePages extends StatefulWidget {
-  const TelaHomePages({Key? key, User? user}) : super(key: key);
+class TelaHomePagesAdolescente extends StatefulWidget {
+  const TelaHomePagesAdolescente({Key? key, User? user}) : super(key: key);
 
   @override
-  State<TelaHomePages> createState() => _TelaHomePagesState();
+  State<TelaHomePagesAdolescente> createState() => _TelaHomePagesAdolescenteState();
 }
 
-class _TelaHomePagesState extends State<TelaHomePages> {
+class _TelaHomePagesAdolescenteState extends State<TelaHomePagesAdolescente> {
   late final TabController _tabController;
   final _formKey = GlobalKey<FormState>();
   int _currentPage = 1;
@@ -39,7 +39,7 @@ class _TelaHomePagesState extends State<TelaHomePages> {
           controller: pc,
           children: [
             TelaAnaliseIA(),
-            TelaHomeUsuario(),
+            TelaHomeUsuarioAdolescente(),
             TelaEmergencia(),
           ],
           onPageChanged: setPaginaAtual,

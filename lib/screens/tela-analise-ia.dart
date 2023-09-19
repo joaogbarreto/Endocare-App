@@ -1,17 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
-import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart';
-import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
-import 'package:primeiroprojeto/styles/endocare_icons.dart';
-import 'package:primeiroprojeto/widgets/card-insulina.dart';
-import 'package:primeiroprojeto/widgets/card-medicacao.dart';
-import 'package:primeiroprojeto/widgets/card-glicose.dart';
-import 'package:primeiroprojeto/widgets/line-chart.dart';
-import 'package:primeiroprojeto/widgets/navigationdrawer.dart';
-
-import '../data/cadastro_glicose_inherited.dart';
 
 class TelaAnaliseIA extends StatefulWidget {
   const TelaAnaliseIA({Key? key}) : super(key: key);

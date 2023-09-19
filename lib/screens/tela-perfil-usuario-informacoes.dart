@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:primeiroprojeto/authentication/services/auth_service.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 
 class TelaPerfilUsuarioInformacoes extends StatefulWidget {

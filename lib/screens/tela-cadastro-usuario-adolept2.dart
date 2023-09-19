@@ -1,4 +1,3 @@
-import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:primeiroprojeto/authentication/services/auth_service.dart';
@@ -6,14 +5,14 @@ import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 
-class TelaCadastroUsuarioPT2 extends StatefulWidget {
-  const TelaCadastroUsuarioPT2({Key? key}) : super(key: key);
+class TelaCadastroUsuarioAdolescentePT2 extends StatefulWidget {
+  const TelaCadastroUsuarioAdolescentePT2({Key? key}) : super(key: key);
 
   @override
-  State<TelaCadastroUsuarioPT2> createState() => _TelaCadastroUsuarioPT2State();
+  State<TelaCadastroUsuarioAdolescentePT2> createState() => _TelaCadastroUsuarioAdolescentePT2State();
 }
 
-class _TelaCadastroUsuarioPT2State extends State<TelaCadastroUsuarioPT2> {
+class _TelaCadastroUsuarioAdolescentePT2State extends State<TelaCadastroUsuarioAdolescentePT2> {
   final dropValue = ValueNotifier('');
   final dropOpcoes = ["Masculino", "Feminino"];
 

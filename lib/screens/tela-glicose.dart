@@ -1,20 +1,15 @@
 import 'package:cloud_firestore/cloud_firestore.dart';
+import 'package:firebase_auth/firebase_auth.dart';
 import 'package:flutter/material.dart';
-import 'package:flutter/scheduler.dart';
 import 'package:intl/intl.dart';
 import 'package:primeiroprojeto/authentication/components/show_snackbar.dart';
-import 'package:primeiroprojeto/data/cadastro_glicose_inherited.dart';
 import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart';
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 import 'package:primeiroprojeto/widgets/card-glicose.dart';
 import 'package:primeiroprojeto/widgets/line-chart.dart';
-import 'package:syncfusion_flutter_charts/charts.dart';
-import 'package:table_calendar/table_calendar.dart';
 import 'package:uuid/uuid.dart';
-
-import '../firestore/firestore_glicose/models/glicose.dart';
 
 class TelaGlicose extends StatefulWidget {
   const TelaGlicose({Key? key}) : super(key: key);
@@ -33,6 +28,7 @@ class _TelaGlicoseState extends State<TelaGlicose> {
 
   FirebaseFirestore firestore = FirebaseFirestore.instance;
 
+  String fUID = FirebaseAuth.instance.currentUser!.uid;
   List<Glicose> listGlicose = [];
 
   @override
@@ -125,38 +121,6 @@ class _TelaGlicoseState extends State<TelaGlicose> {
               );
             }, childCount: listGlicose.length))
           ]),
-        ),
-        bottomNavigationBar: BottomNavigationBar(
-          fixedColor: secondaryColorblue,
-          showSelectedLabels: null,
-          showUnselectedLabels: null,
-          iconSize: 40,
-          items: <BottomNavigationBarItem>[
-            BottomNavigationBarItem(
-              icon: Icon(
-                Icons.bar_chart_sharp,
-                color: secondaryColorblue,
-              ),
-              label: 'Análise',
-            ),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.home,
-                  color: secondaryColorblue,
-                ),
-                label: 'Home'),
-            BottomNavigationBarItem(
-                icon: Icon(
-                  Icons.notifications,
-                  color: secondaryColorblue,
-                ),
-                label: 'Emergência'),
-          ],
-          currentIndex: _currentPage,
-          onTap: (pagina) {
-            pc.animateToPage(pagina,
-                duration: Duration(milliseconds: 400), curve: Curves.ease);
-          },
         ),
         floatingActionButton: FloatingActionButton(
           backgroundColor: principalColor,

@@ -7,14 +7,14 @@ import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 import 'package:primeiroprojeto/widgets/data-nasc.dart';
 
-class TelaCadastroUsuarioPT1 extends StatefulWidget {
-  const TelaCadastroUsuarioPT1({Key? key}) : super(key: key);
+class TelaCadastroUsuarioAdolescentePT1 extends StatefulWidget {
+  const TelaCadastroUsuarioAdolescentePT1({Key? key}) : super(key: key);
 
   @override
-  State<TelaCadastroUsuarioPT1> createState() => _TelaCadastroUsuarioPT1State();
+  State<TelaCadastroUsuarioAdolescentePT1> createState() => _TelaCadastroUsuarioAdolescentePT1State();
 }
 
-class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
+class _TelaCadastroUsuarioAdolescentePT1State extends State<TelaCadastroUsuarioAdolescentePT1> {
   TextEditingController firstNameController = TextEditingController();
   TextEditingController secondNameController = TextEditingController();
   TextEditingController dateNascController = TextEditingController();
@@ -81,7 +81,7 @@ class _TelaCadastroUsuarioPT1State extends State<TelaCadastroUsuarioPT1> {
                                       return "O valor de nome deve ser preenchido";
                                     }
                                     if (value!.isEmpty ||
-                                        !RegExp(r'^[a-z A-Z]+$')
+                                        !RegExp(r'^[a-z A-Z çÇ]+$')
                                             .hasMatch(value!) ||
                                         value.length < 2) {
                                       return "Entre com um nome válido";

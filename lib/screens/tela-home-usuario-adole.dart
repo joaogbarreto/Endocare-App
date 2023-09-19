@@ -1,26 +1,16 @@
 import 'package:flutter/material.dart';
-import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
-import 'package:primeiroprojeto/firestore/firestore_glicose/models/glicose.dart';
 import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
-import 'package:primeiroprojeto/styles/endocare_icons.dart';
-import 'package:primeiroprojeto/widgets/card-insulina.dart';
-import 'package:primeiroprojeto/widgets/card-medicacao.dart';
-import 'package:primeiroprojeto/widgets/card-glicose.dart';
-import 'package:primeiroprojeto/widgets/line-chart.dart';
-import 'package:primeiroprojeto/widgets/navigationdrawer.dart';
 
-import '../data/cadastro_glicose_inherited.dart';
-
-class TelaHomeUsuario extends StatefulWidget {
-  const TelaHomeUsuario({Key? key}) : super(key: key);
+class TelaHomeUsuarioAdolescente extends StatefulWidget {
+  const TelaHomeUsuarioAdolescente({Key? key}) : super(key: key);
 
   @override
-  State<TelaHomeUsuario> createState() => _TelaHomeUsuarioState();
+  State<TelaHomeUsuarioAdolescente> createState() => _TelaHomeUsuarioAdolescenteState();
 }
 
-class _TelaHomeUsuarioState extends State<TelaHomeUsuario> {
+class _TelaHomeUsuarioAdolescenteState extends State<TelaHomeUsuarioAdolescente> {
   late final TabController _tabController;
   final _formKey = GlobalKey<FormState>();
   int _currentPage = 0;

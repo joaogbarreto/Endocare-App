@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:flutter/widgets.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:primeiroprojeto/authentication/components/show_snackbar.dart';
 import 'package:primeiroprojeto/authentication/services/auth_service.dart';
@@ -7,14 +6,14 @@ import 'package:primeiroprojeto/styles/button.dart';
 import 'package:primeiroprojeto/styles/color.dart';
 import 'package:primeiroprojeto/styles/text-styles.dart';
 
-class TelaCadastroUsuarioPT3 extends StatefulWidget {
-  const TelaCadastroUsuarioPT3({Key? key}) : super(key: key);
+class TelaCadastroUsuarioAdolescentePT3 extends StatefulWidget {
+  const TelaCadastroUsuarioAdolescentePT3({Key? key}) : super(key: key);
 
   @override
-  State<TelaCadastroUsuarioPT3> createState() => _TelaCadastroUsuarioPT3State();
+  State<TelaCadastroUsuarioAdolescentePT3> createState() => _TelaCadastroUsuarioAdolescentePT3State();
 }
 
-class _TelaCadastroUsuarioPT3State extends State<TelaCadastroUsuarioPT3> {
+class _TelaCadastroUsuarioAdolescentePT3State extends State<TelaCadastroUsuarioAdolescentePT3> {
   TextEditingController emailController = TextEditingController();
   TextEditingController passwordController = TextEditingController();
   TextEditingController passwordConfirmController = TextEditingController();
